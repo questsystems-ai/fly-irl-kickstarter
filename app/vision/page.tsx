@@ -544,7 +544,7 @@ export default function VisionPage() {
           Real flight. Real controls. Impossible to crash.
         </h2>
         <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.75)', maxWidth: 640, marginBottom: 36 }}>
-          FlyIRL is a flight experience park where anyone can fly a real aircraft — with autonomous safety that makes dangerous outcomes physically impossible.
+          FlyIRL is a flight experience park where anyone can fly a real aircraft — with autonomous safety that makes dangerous outcomes effectively impossible.
         </p>
         <div className="steps-row">
           <div className="step-card">
@@ -650,7 +650,7 @@ export default function VisionPage() {
           Three layers of safety
         </h2>
         <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.75)', maxWidth: 600, marginBottom: 12 }}>
-          Redundant systems ensure dangerous outcomes are physically impossible — not just unlikely.
+          Redundant systems ensure dangerous outcomes are effectively impossible — not just unlikely.
         </p>
         <div className="safety-stack">
           <div className="safety-layer">
