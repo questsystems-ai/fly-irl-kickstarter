@@ -522,7 +522,7 @@ export default function KickstarterPage() {
             <div className="converge-track t2">
               <h4>Park and Systems</h4>
               <ul>
-                <li>SkyZone definition, traffic coordination</li>
+                <li>SkyPark definition, traffic coordination</li>
                 <li>Guest pilot interface: AR HUD, simplified controls</li>
                 <li>Collision avoidance, envelope protection logic</li>
                 <li>Operations: briefing flow, session management, maintenance</li>
@@ -671,21 +671,39 @@ export default function KickstarterPage() {
           </div>
 
           {/* Tier 5 — Limited */}
-          <div className="tier-card featured">
-            <div className="tier-featured-badge">Limited — 50 Available</div>
+          <div className="tier-card">
             <div className="tier-price">$10,000</div>
             <div className="tier-name">Ranch Pioneer</div>
             <p className="tier-desc">
               A deposit toward a personal flight system. When ranch installations
-              begin, Ranch Pioneers are first in line — with $10,000 credited
+              begin, Ranch Pioneers are first on the wait list — with $10,000 credited
               toward the purchase price of their system.
             </p>
             <ul className="tier-perks">
               <li>Everything in Founding Pilot</li>
               <li>$10K credited toward personal system purchase</li>
-              <li>Priority position in the ranch installation queue</li>
+              <li>First on the ranch installation wait list</li>
               <li>Direct input on personal system design</li>
               <li>Private quarterly briefings with founder</li>
+            </ul>
+          </div>
+
+          {/* Tier 6 — Ultra Limited */}
+          <div className="tier-card featured">
+            <div className="tier-featured-badge">Limited — 5 Available</div>
+            <div className="tier-price">$100,000</div>
+            <div className="tier-name">Ranch Founder</div>
+            <p className="tier-desc">
+              A deposit on one of the first five personal ranch installations.
+              Ranch Founders are guaranteed a system in the first production run,
+              with $100,000 credited toward the purchase price.
+            </p>
+            <ul className="tier-perks">
+              <li>Everything in Ranch Pioneer</li>
+              <li>$100K credited toward personal system purchase</li>
+              <li>Guaranteed slot in first 5 ranch installations</li>
+              <li>Co-design your installation with the engineering team</li>
+              <li>Monthly direct access to founder throughout development</li>
             </ul>
           </div>
         </div>

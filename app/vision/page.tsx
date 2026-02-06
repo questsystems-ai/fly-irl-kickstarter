@@ -114,26 +114,22 @@ export default function VisionPage() {
           padding: 140px 24px 100px;
           background: linear-gradient(165deg, var(--dark2) 0%, #1a1a1a 50%, #2a2520 100%);
           color: #fff;
+          position: relative;
         }
-        .title-slide::before {
+        .title-slide .title-bg {
+          position: absolute;
+          inset: 0;
+          background-size: cover;
+          background-position: center;
+          opacity: 0.25;
+        }
+        .title-slide::after {
           content: '';
           position: absolute;
           inset: 0;
-          background: radial-gradient(ellipse at 50% 120%, rgba(247,243,234,0.06) 0%, transparent 70%);
+          background: linear-gradient(to bottom, rgba(13,13,13,0.6) 0%, rgba(13,13,13,0.3) 50%, rgba(13,13,13,0.8) 100%);
         }
-        .title-slide .slide-inner { position: relative; max-width: 900px; }
-        .title-badge {
-          display: inline-block;
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          color: var(--accent);
-          border: 1px solid rgba(247,243,234,0.3);
-          padding: 8px 18px;
-          border-radius: 50px;
-          margin-bottom: 28px;
-        }
+        .title-slide .slide-inner { position: relative; max-width: 900px; z-index: 1; }
         .title-slide h1 {
           font-size: clamp(36px, 6vw, 58px);
           font-weight: 800;
@@ -147,6 +143,23 @@ export default function VisionPage() {
           max-width: 600px;
           margin: 0 auto;
           font-weight: 300;
+        }
+
+        /* Problem card icons */
+        .stat-card-icon {
+          width: 56px;
+          height: 56px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 14px;
+          font-size: 13px;
+          color: var(--muted);
+          font-style: italic;
+          background: #e8e5e0;
+          border: 2px dashed #ccc;
+          text-align: center;
         }
 
         /* Two-column layout for slides */
@@ -461,8 +474,8 @@ export default function VisionPage() {
 
       {/* SLIDE 0: TITLE */}
       <section className="slide title-slide">
+        <div className="title-bg" style={{ backgroundImage: 'url(/images/title-bg.jpg)' }} />
         <div className="slide-inner">
-          <div className="title-badge">Pitch Overview</div>
           <h1>The Future of Flight is <span>Fearless</span></h1>
           <p>
             The world's first autonomous safety-enabled flight experience park.
@@ -481,10 +494,46 @@ export default function VisionPage() {
           The thrill of real flight — aerobatics, pushing limits, pure freedom — is reserved for the elite few.
         </p>
         <div className="stat-grid">
-          <StatCard value="$15K+" label="Cost Barrier" desc="Minimum for a private pilot license, plus 6–12 months of training." />
-          <StatCard value="1,000+" label="Fatalities / Year" desc="GA remains one of the most dangerous forms of transportation." />
-          <StatCard value="0.2%" label="Access Rate" desc="Fewer than 1 in 500 Americans hold a pilot certificate." />
-          <StatCard value="∞" label="Demand" desc="Every kid at some point dreams of flight. Then adult reality kicks in." />
+          <div className="stat-card">
+            <div style={{
+              width: '100%', height: 80, background: '#e8e5e0', borderRadius: 6,
+              marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 12, color: 'var(--muted)', fontStyle: 'italic',
+            }}>[Stack of bills / price tag visual]</div>
+            <div className="stat-value">$15K+</div>
+            <div className="stat-label">Cost Barrier</div>
+            <p className="stat-desc">Minimum for a private pilot license, plus 6–12 months of training.</p>
+          </div>
+          <div className="stat-card">
+            <div style={{
+              width: '100%', height: 80, background: '#e8e5e0', borderRadius: 6,
+              marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 12, color: 'var(--muted)', fontStyle: 'italic',
+            }}>[NTSB crash data chart or wreckage photo]</div>
+            <div className="stat-value">3x</div>
+            <div className="stat-label">More Dangerous Than Driving</div>
+            <p className="stat-desc">Per hour, general aviation is 3x more fatal than driving a car.</p>
+          </div>
+          <div className="stat-card">
+            <div style={{
+              width: '100%', height: 80, background: '#e8e5e0', borderRadius: 6,
+              marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 12, color: 'var(--muted)', fontStyle: 'italic',
+            }}>[Locked gate / velvet rope visual]</div>
+            <div className="stat-value">0.2%</div>
+            <div className="stat-label">Access Rate</div>
+            <p className="stat-desc">Fewer than 1 in 500 Americans hold a pilot certificate.</p>
+          </div>
+          <div className="stat-card">
+            <div style={{
+              width: '100%', height: 80, background: '#e8e5e0', borderRadius: 6,
+              marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 12, color: 'var(--muted)', fontStyle: 'italic',
+            }}>[Kid looking up at sky / paper airplane]</div>
+            <div className="stat-value">∞</div>
+            <div className="stat-label">Demand</div>
+            <p className="stat-desc">Every kid at some point dreams of flight. Then adult reality kicks in.</p>
+          </div>
         </div>
       </Slide>
 
@@ -499,19 +548,64 @@ export default function VisionPage() {
         </p>
         <div className="steps-row">
           <div className="step-card">
+            <div style={{
+              background: 'rgba(255,255,255,0.08)',
+              border: '2px dashed rgba(255,255,255,0.15)',
+              borderRadius: 6,
+              height: 120,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 14,
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.35)',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              padding: 8,
+            }}>[Guest hands on stick, sky through canopy]</div>
             <div className="step-num">1</div>
             <h4>You Fly</h4>
             <p>Real stick, real rudder, real G-forces. You're actually piloting through real skies.</p>
           </div>
           <div className="step-card">
+            <div style={{
+              background: 'rgba(255,255,255,0.08)',
+              border: '2px dashed rgba(255,255,255,0.15)',
+              borderRadius: 6,
+              height: 120,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 14,
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.35)',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              padding: 8,
+            }}>[Digital twin overlay — predicted trajectory arcs]</div>
             <div className="step-num">2</div>
             <h4>AI Watches</h4>
             <p>Digital twin predicts every possible outcome 10 seconds ahead in real-time.</p>
           </div>
           <div className="step-card">
+            <div style={{
+              background: 'rgba(255,255,255,0.08)',
+              border: '2px dashed rgba(255,255,255,0.15)',
+              borderRadius: 6,
+              height: 120,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 14,
+              fontSize: 12,
+              color: 'rgba(255,255,255,0.35)',
+              fontStyle: 'italic',
+              textAlign: 'center',
+              padding: 8,
+            }}>[Aircraft in smooth recovery arc]</div>
             <div className="step-num">3</div>
             <h4>Safety Catches</h4>
-            <p>Push past the envelope? System smoothly takes over, recovers, and hands control back.</p>
+            <p>Push past the envelope? On a collision course? System smoothly takes over, recovers, and hands control back.</p>
           </div>
         </div>
       </Slide>
@@ -536,21 +630,15 @@ export default function VisionPage() {
             </ul>
           </div>
           <div>
-            <div style={{
-              background: '#f0eeeb',
-              border: '2px dashed #ccc',
-              borderRadius: 8,
-              padding: 24,
-              textAlign: 'center',
-              minHeight: 260,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              <p style={{ fontSize: 14, color: 'var(--muted)', fontStyle: 'italic', maxWidth: 240, margin: 0 }}>
-                Concept visual: Hybrid aircraft — fixed wing body with integrated quad rotors. Clean, rugged, functional. Annotation callouts for rotor pods, composite airframe, safety systems bay.
-              </p>
-            </div>
+            <img
+              src="/images/aircraft-concept.webp"
+              alt="FlyIRL hybrid VTOL aircraft concept"
+              style={{
+                width: '100%',
+                borderRadius: 8,
+                display: 'block',
+              }}
+            />
           </div>
         </div>
       </Slide>
