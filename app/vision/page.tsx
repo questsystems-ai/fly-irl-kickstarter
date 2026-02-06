@@ -510,9 +510,9 @@ export default function VisionPage() {
               marginBottom: 14, display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: 12, color: 'var(--muted)', fontStyle: 'italic',
             }}>[NTSB crash data chart or wreckage photo]</div>
-            <div className="stat-value">3x</div>
-            <div className="stat-label">More Dangerous Than Driving</div>
-            <p className="stat-desc">Per hour, general aviation is 3x more fatal than driving a car.</p>
+            <div className="stat-value">1,000+</div>
+            <div className="stat-label">Fatalities / Year</div>
+            <p className="stat-desc">GA remains one of the most dangerous forms of transportation.</p>
           </div>
           <div className="stat-card">
             <div style={{
@@ -631,7 +631,7 @@ export default function VisionPage() {
           </div>
           <div>
             <img
-              src="/images/aircraft-concept.webp"
+              src="/images/aircraft-concept.png"
               alt="FlyIRL hybrid VTOL aircraft concept"
               style={{
                 width: '100%',

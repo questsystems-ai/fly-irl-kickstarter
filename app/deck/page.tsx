@@ -429,7 +429,7 @@ export default function DeckPage() {
           <div className="deck-h2">The Solution</div>
           <div className="deck-sub">
             A flight experience park where anyone can fly a real aircraft — with autonomous safety
-            that makes dangerous outcomes effectively impossible.
+            that makes dangerous outcomes physically impossible.
           </div>
           <div className="deck-3col" style={{ flex: 1 }}>
             <div style={{ textAlign: 'center' }}>
@@ -478,7 +478,7 @@ export default function DeckPage() {
         <div className="deck-slide dark">
           <div className="deck-h2">Three Layers of Safety</div>
           <div className="deck-sub">
-            Redundant systems ensure dangerous outcomes are effectively impossible — not just unlikely.
+            Redundant systems ensure dangerous outcomes are physically impossible — not just unlikely.
           </div>
           <div style={{ flex: 1 }}>
             <div className="deck-layer">
