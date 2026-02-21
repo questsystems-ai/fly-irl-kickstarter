@@ -144,22 +144,43 @@ export default function KickstarterPage() {
       <style>{`
         /* ===== HERO ===== */
         .ks-hero {
-          background: linear-gradient(165deg, var(--dark2) 0%, #1a1a1a 50%, #2a2520 100%);
+          background: #0d0d0d;
           color: #fff;
-          padding: 130px 24px 80px;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 100px 24px 80px;
           text-align: center;
           position: relative;
+          overflow: hidden;
         }
-        .ks-hero::before {
+        .ks-hero-video {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center 40%;
+          opacity: 0.45;
+        }
+        .ks-hero::after {
           content: '';
           position: absolute;
           inset: 0;
-          background: radial-gradient(ellipse at 50% 120%, rgba(247,243,234,0.06) 0%, transparent 70%);
+          background: linear-gradient(
+            to bottom,
+            rgba(13,13,13,0.5) 0%,
+            rgba(13,13,13,0.2) 40%,
+            rgba(13,13,13,0.6) 100%
+          );
+          z-index: 1;
         }
         .ks-hero-inner {
           position: relative;
           max-width: 800px;
           margin: 0 auto;
+          z-index: 2;
         }
         .ks-badge {
           display: inline-block;
@@ -178,14 +199,16 @@ export default function KickstarterPage() {
           font-weight: 800;
           margin-bottom: 18px;
           letter-spacing: -1px;
+          text-shadow: 0 2px 20px rgba(0,0,0,0.6), 0 1px 4px rgba(0,0,0,0.4);
         }
         .ks-hero h1 span { color: var(--accent); }
         .ks-hero p {
           font-size: 18px;
-          color: rgba(255,255,255,0.7);
+          color: rgba(255,255,255,0.8);
           max-width: 560px;
           margin: 0 auto 32px;
           font-weight: 300;
+          text-shadow: 0 1px 8px rgba(0,0,0,0.5);
         }
 
         /* ===== SECTION WRAPPER ===== */
@@ -720,6 +743,14 @@ export default function KickstarterPage() {
 
       {/* ══════════ HERO + EMAIL CTA (bold, at top) ══════════ */}
       <section className="ks-hero">
+        <video
+          className="ks-hero-video"
+          src="/videos/hero.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <div className="ks-hero-inner">
           <div className="ks-badge">Kickstarter Pre-Launch</div>
           <h1>Back the <span>SkyPark</span></h1>

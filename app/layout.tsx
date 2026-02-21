@@ -9,14 +9,22 @@ import GTMTracker from "@/components/GTMTracker";
 // ============================================
 // PIXEL & TAG IDs — replace placeholders with your real IDs
 // ============================================
-const GTM_ID = "GTM-XXXXXXX"; // ← Your GTM Container ID (see TRACKING-SETUP.md)
+const GTM_ID = "GTM-TP3XKJVM";
 const META_PIXEL_ID = "1263296819041974";
 const TIKTOK_PIXEL_ID = "D68AQ4JC77U42FK0214G";
 // ============================================
 
 export const metadata: Metadata = {
   title: "FlyIRL — The SkyPark",
-  description: "Real flight. Hard safety limits. No Certificate Required",
+  description: "Real flight. No license. Hard safety limits.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
