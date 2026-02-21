@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #f4f3f3;
+  --ink: #2f2f2f;
+  --muted: #5a5a5a;
+  --dark: #1a1a1a;
+  --dark2: #0d0d0d;
+  --accent: #f7f3ea;
+  --accentText: #110f0f;
+  --border: #e0e0e0;
+  --max: 1100px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  line-height: 1.2;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== SHARED NAV ===== */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(13, 13, 13, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.site-nav-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.site-nav-logo {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+.site-nav-logo span { color: var(--accent); }
+.site-nav-links {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.site-nav-link {
+  font-size: 13px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  color: rgba(255,255,255,0.75);
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+}
+.site-nav-link.active {
+  background: rgba(247,243,234,0.92);
+  color: var(--accentText);
+  border-color: rgba(247,243,234,0.92);
+  font-weight: 600;
+}
+
+/* ===== SHARED FOOTER ===== */
+.site-footer {
+  background: var(--dark2);
+  color: rgba(255,255,255,0.55);
+  font-size: 13px;
+  padding: 24px;
+  text-align: center;
+}
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* ===== UTILITY ===== */
+.wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .site-nav-links { gap: 2px; }
+  .site-nav-link { font-size: 12px; padding: 6px 10px; }
+}
