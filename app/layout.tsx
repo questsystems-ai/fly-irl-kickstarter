@@ -16,7 +16,7 @@ const TIKTOK_PIXEL_ID = "D68AQ4JC77U42FK0214G";
 
 export const metadata: Metadata = {
   title: "FlyIRL — The SkyPark",
-  description: "Real flight. No license. Hard safety limits.",
+  description: "Real flight. Hard safety limits. No Certificate Required",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
