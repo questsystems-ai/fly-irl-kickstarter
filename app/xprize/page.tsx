@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import LikeWidget from "@/components/LikeWidget";
 
 // Accent: academic purple
 const ACCENT = "#a855f7";
@@ -812,6 +813,8 @@ export default function XPrizePage() {
         </div>
 
       </div>
+
+      <LikeWidget campaign="xprize" accent={ACCENT} />
     </>
   );
 }

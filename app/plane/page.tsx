@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import LikeWidget from "@/components/LikeWidget";
 
 // Accent: aerospace blue
 const ACCENT = "#3b82f6";
@@ -816,6 +817,8 @@ export default function PlanePage() {
         </div>
 
       </div>
+
+      <LikeWidget campaign="plane" accent={ACCENT} />
     </>
   );
 }

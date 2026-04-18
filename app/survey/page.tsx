@@ -4,13 +4,48 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 const TIERS = [
-  { id: "dreamer", label: "Dreamer — $25", sub: "Founders Wall, private build updates" },
-  { id: "crew", label: "Crew Member — $100", sub: "Monthly design reviews, Discord, voting" },
-  { id: "testpilot", label: "Test Pilot — $300", sub: "Priority demos, simulation beta, launch-day flight reservation" },
-  { id: "founding", label: "Founding Pilot — $1,000", sub: "Guaranteed first-year flight, name on the aircraft" },
-  { id: "pioneer", label: "Ranch Pioneer — $10,000", sub: "$10K toward a personal ranch system" },
-  { id: "ranchfounder", label: "Ranch Founder — $100,000", sub: "Deposit on one of the first 5 personal installations" },
-  { id: "none", label: "None of these — but I have ideas", sub: "Tell us below" },
+  {
+    id: "dreamer",
+    price: "$25",
+    name: "Dreamer",
+    desc: "You believe this should exist. Name on the Founders Wall plus direct updates as it's built.",
+    perks: ["Founders Wall listing", "Private build updates", "Digital backer badge"],
+  },
+  {
+    id: "crew",
+    price: "$100",
+    name: "Crew Member",
+    desc: "Follow the design process in real time. Monthly reviews and a seat in the community.",
+    perks: ["Monthly design reviews", "Backer Discord access", "Voting on design decisions"],
+  },
+  {
+    id: "testpilot",
+    price: "$300",
+    name: "Test Pilot",
+    desc: "Priority access to demos and the simulation beta. Plus a launch-day flight reservation.",
+    perks: ["Priority demo access", "Simulation beta access", "Launch-day flight reservation"],
+  },
+  {
+    id: "founding",
+    price: "$1,000",
+    name: "Founding Pilot",
+    desc: "Serious commitment. Guaranteed first-year flight and your name on the aircraft.",
+    perks: ["Guaranteed first-year flight", "Name on the aircraft", "Quarterly founder calls"],
+  },
+  {
+    id: "pioneer",
+    price: "$10,000",
+    name: "Ranch Pioneer",
+    desc: "$10K toward a personal ranch system — you're not just backing the SkyPark, you're building your own.",
+    perks: ["$10K credit toward personal installation", "Private demo slot", "Direct founder access"],
+  },
+  {
+    id: "ranchfounder",
+    price: "$100K",
+    name: "Ranch Founder",
+    desc: "Deposit on one of the first 5 personal SkyPark installations. This is the real thing.",
+    perks: ["Deposit on personal SkyPark", "One of first 5 installations", "Co-design input on your system"],
+  },
 ];
 
 type Status = "idle" | "saving" | "done" | "error";
@@ -43,7 +78,6 @@ export default function SurveyPage() {
     e.preventDefault();
     setStatus("saving");
     setErrorMsg("");
-
     try {
       const res = await fetch("/api/survey", {
         method: "POST",
@@ -60,7 +94,6 @@ export default function SurveyPage() {
           ideas: ideas.trim() || null,
         }),
       });
-
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Something went wrong.");
       setStatus("done");
@@ -74,14 +107,14 @@ export default function SurveyPage() {
   return (
     <>
       <style>{`
-        .survey-wrap {
+        .sv-wrap {
           background: #f9f8f6;
           min-height: 100vh;
           padding-bottom: 80px;
         }
 
         /* ── Top bar ── */
-        .survey-topbar {
+        .sv-topbar {
           background: #1a1a1a;
           padding: 14px 24px;
           display: flex;
@@ -89,7 +122,7 @@ export default function SurveyPage() {
           justify-content: space-between;
           gap: 12px;
         }
-        .survey-logo {
+        .sv-logo {
           font-family: 'Montserrat', sans-serif;
           font-weight: 800;
           font-size: 18px;
@@ -97,8 +130,8 @@ export default function SurveyPage() {
           letter-spacing: -0.5px;
           text-decoration: none;
         }
-        .survey-logo span { color: #f7f3ea; }
-        .survey-topbar-label {
+        .sv-logo span { color: #f7f3ea; }
+        .sv-topbar-label {
           font-size: 12px;
           font-weight: 500;
           color: rgba(255,255,255,0.4);
@@ -107,13 +140,13 @@ export default function SurveyPage() {
         }
 
         /* ── Hero ── */
-        .survey-hero {
+        .sv-hero {
           background: #1a1a1a;
           padding: 52px 24px 44px;
           text-align: center;
           border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .survey-eyebrow {
+        .sv-eyebrow {
           display: inline-block;
           font-size: 11px;
           font-weight: 700;
@@ -122,7 +155,7 @@ export default function SurveyPage() {
           color: rgba(247,243,234,0.45);
           margin-bottom: 14px;
         }
-        .survey-hero h1 {
+        .sv-hero h1 {
           font-family: 'Montserrat', sans-serif;
           font-size: clamp(26px, 5vw, 38px);
           font-weight: 800;
@@ -131,31 +164,31 @@ export default function SurveyPage() {
           margin-bottom: 14px;
           line-height: 1.15;
         }
-        .survey-hero p {
+        .sv-hero p {
           font-size: 16px;
           color: rgba(255,255,255,0.55);
           max-width: 500px;
           margin: 0 auto;
           line-height: 1.65;
         }
-        .survey-hero strong { color: rgba(247,243,234,0.85); font-weight: 500; }
+        .sv-hero strong { color: rgba(247,243,234,0.85); font-weight: 500; }
 
         /* ── Form container ── */
-        .survey-form-wrap {
-          max-width: 640px;
+        .sv-form-wrap {
+          max-width: 700px;
           margin: 0 auto;
           padding: 48px 24px;
         }
 
         /* ── Question block ── */
-        .survey-q {
+        .sv-q {
           background: #fff;
           border: 1px solid #e8e5e0;
           border-radius: 10px;
           padding: 28px 24px;
-          margin-bottom: 16px;
+          margin-bottom: 20px;
         }
-        .survey-q-label {
+        .sv-q-label {
           font-family: 'Montserrat', sans-serif;
           font-size: 15px;
           font-weight: 700;
@@ -163,62 +196,215 @@ export default function SurveyPage() {
           margin-bottom: 6px;
           line-height: 1.35;
         }
-        .survey-q-hint {
+        .sv-q-hint {
           font-size: 13px;
           color: #999;
           margin-bottom: 18px;
           line-height: 1.5;
         }
 
-        /* ── Checkbox / radio options ── */
-        .survey-options {
+        /* ── Tier card grid ── */
+        .sv-tier-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 14px;
+          margin-top: 4px;
+        }
+        .sv-tier-card {
+          position: relative;
+          background: #fafafa;
+          border: 2px solid #e8e5e0;
+          border-radius: 10px;
+          padding: 22px 20px 18px;
+          cursor: pointer;
+          transition: border-color 0.12s, background 0.12s, box-shadow 0.12s;
+          user-select: none;
           display: flex;
           flex-direction: column;
-          gap: 10px;
         }
-        .survey-option {
+        .sv-tier-card:hover {
+          border-color: #aaa;
+          background: #fff;
+        }
+        .sv-tier-card.selected {
+          border-color: #1a1a1a;
+          background: #fff;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        }
+        .sv-tier-card input[type="checkbox"] {
+          position: absolute;
+          opacity: 0;
+          pointer-events: none;
+        }
+        /* Checkmark badge */
+        .sv-tier-check {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          border: 2px solid #e0e0e0;
+          background: #fff;
           display: flex;
-          align-items: flex-start;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.12s;
+          flex-shrink: 0;
+        }
+        .sv-tier-card.selected .sv-tier-check {
+          background: #1a1a1a;
+          border-color: #1a1a1a;
+        }
+        .sv-tier-check-mark {
+          display: none;
+          color: #fff;
+          font-size: 12px;
+          font-weight: 700;
+          line-height: 1;
+        }
+        .sv-tier-card.selected .sv-tier-check-mark { display: block; }
+
+        .sv-tier-price {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 26px;
+          font-weight: 800;
+          color: #1a1a1a;
+          margin-bottom: 2px;
+          padding-right: 28px;
+        }
+        .sv-tier-name {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          color: #888;
+          text-transform: uppercase;
+          letter-spacing: 0.8px;
+          margin-bottom: 10px;
+        }
+        .sv-tier-desc {
+          font-size: 13px;
+          color: #555;
+          line-height: 1.55;
+          flex: 1;
+          margin-bottom: 12px;
+        }
+        .sv-tier-perks {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          border-top: 1px solid #f0ede8;
+          padding-top: 10px;
+        }
+        .sv-tier-perks li {
+          font-size: 12px;
+          color: #777;
+          padding: 3px 0 3px 16px;
+          position: relative;
+          line-height: 1.4;
+        }
+        .sv-tier-perks li::before {
+          content: '✓';
+          position: absolute;
+          left: 0;
+          color: #1a1a1a;
+          font-weight: 700;
+          font-size: 11px;
+        }
+        .sv-tier-card.selected .sv-tier-perks li::before { color: #1a1a1a; }
+        .sv-tier-none {
+          grid-column: 1 / -1;
+          flex-direction: row;
+          align-items: center;
+          padding: 16px 20px;
           gap: 12px;
-          padding: 12px 14px;
+        }
+        .sv-tier-none .sv-tier-price { font-size: 15px; font-weight: 600; color: #555; margin: 0; padding: 0; }
+        .sv-tier-none .sv-tier-check { position: static; flex-shrink: 0; }
+
+        /* ── Standard radio/checkbox options ── */
+        .sv-options {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          margin-top: 4px;
+        }
+        .sv-option {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 11px 14px;
           border: 1.5px solid #e8e5e0;
           border-radius: 8px;
           cursor: pointer;
           transition: border-color 0.12s, background 0.12s;
           user-select: none;
         }
-        .survey-option:hover {
-          border-color: #1a1a1a;
-          background: #fafafa;
+        .sv-option:hover { border-color: #1a1a1a; background: #fafafa; }
+        .sv-option.selected { border-color: #1a1a1a; background: #f4f3f3; }
+        .sv-option input { accent-color: #1a1a1a; width: 16px; height: 16px; cursor: pointer; flex-shrink: 0; }
+        .sv-option-main { font-size: 14px; font-weight: 600; color: #1a1a1a; line-height: 1.3; }
+
+        /* ── Concept card ── */
+        .sv-concept-card {
+          border-radius: 10px;
+          padding: 22px 22px 18px;
+          margin-bottom: 16px;
+          border: 2px solid;
         }
-        .survey-option.selected {
-          border-color: #1a1a1a;
-          background: #f4f3f3;
+        .sv-concept-tag {
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          margin-bottom: 8px;
         }
-        .survey-option input {
-          margin-top: 2px;
-          flex-shrink: 0;
-          accent-color: #1a1a1a;
-          width: 16px;
-          height: 16px;
-          cursor: pointer;
+        .sv-concept-goal {
+          display: inline-block;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          color: #fff;
+          padding: 3px 9px;
+          border-radius: 4px;
+          margin-bottom: 10px;
         }
-        .survey-option-text { flex: 1; }
-        .survey-option-main {
-          font-size: 14px;
-          font-weight: 600;
-          color: #1a1a1a;
+        .sv-concept-card h4 {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 16px;
+          font-weight: 800;
+          margin-bottom: 8px;
           line-height: 1.3;
         }
-        .survey-option-sub {
-          font-size: 12px;
-          color: #999;
-          margin-top: 2px;
-          line-height: 1.4;
+        .sv-concept-card p {
+          font-size: 13px;
+          line-height: 1.65;
+          margin: 0;
         }
 
+        /* Cub — gold */
+        .sv-concept--cub { border-color: #d4a85c; background: #fdf9f2; }
+        .sv-concept--cub .sv-concept-tag { color: #b8893a; }
+        .sv-concept--cub .sv-concept-goal { background: #d4a85c; }
+        .sv-concept--cub h4 { color: #2c2418; }
+        .sv-concept--cub p { color: #6b5d4d; }
+
+        /* Plane — green */
+        .sv-concept--plane { border-color: #2e7d4f; background: #f4fbf6; }
+        .sv-concept--plane .sv-concept-tag { color: #2e7d4f; }
+        .sv-concept--plane .sv-concept-goal { background: #2e7d4f; }
+        .sv-concept--plane h4 { color: #1a1a1a; }
+        .sv-concept--plane p { color: #444; }
+
+        /* X-Prize — purple */
+        .sv-concept--xprize { border-color: #6b47b8; background: #faf7ff; }
+        .sv-concept--xprize .sv-concept-tag { color: #6b47b8; }
+        .sv-concept--xprize .sv-concept-goal { background: #6b47b8; }
+        .sv-concept--xprize h4 { color: #1a1a1a; }
+        .sv-concept--xprize p { color: #444; }
+
         /* ── Textarea ── */
-        .survey-textarea {
+        .sv-textarea {
           width: 100%;
           padding: 14px 16px;
           border: 1.5px solid #e8e5e0;
@@ -233,17 +419,12 @@ export default function SurveyPage() {
           transition: border-color 0.12s;
           line-height: 1.6;
         }
-        .survey-textarea:focus { border-color: #1a1a1a; background: #fff; }
-        .survey-textarea::placeholder { color: #bbb; }
-        .survey-char-count {
-          font-size: 12px;
-          color: #bbb;
-          text-align: right;
-          margin-top: 6px;
-        }
+        .sv-textarea:focus { border-color: #1a1a1a; background: #fff; }
+        .sv-textarea::placeholder { color: #bbb; }
+        .sv-char-count { font-size: 12px; color: #bbb; text-align: right; margin-top: 6px; }
 
         /* ── Email input ── */
-        .survey-email-input {
+        .sv-email-input {
           width: 100%;
           padding: 14px 16px;
           border: 1.5px solid #e8e5e0;
@@ -255,15 +436,12 @@ export default function SurveyPage() {
           outline: none;
           transition: border-color 0.12s;
         }
-        .survey-email-input:focus { border-color: #1a1a1a; background: #fff; }
-        .survey-email-input::placeholder { color: #bbb; }
+        .sv-email-input:focus { border-color: #1a1a1a; background: #fff; }
+        .sv-email-input::placeholder { color: #bbb; }
 
         /* ── Submit ── */
-        .survey-submit-wrap {
-          margin-top: 8px;
-          text-align: center;
-        }
-        .survey-submit-btn {
+        .sv-submit-wrap { margin-top: 8px; text-align: center; }
+        .sv-submit-btn {
           background: #1a1a1a;
           color: #f7f3ea;
           font-family: 'Montserrat', sans-serif;
@@ -278,17 +456,12 @@ export default function SurveyPage() {
           width: 100%;
           max-width: 360px;
         }
-        .survey-submit-btn:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
-        .survey-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .survey-error {
-          color: #c0392b;
-          font-size: 14px;
-          margin-top: 12px;
-          text-align: center;
-        }
+        .sv-submit-btn:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
+        .sv-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .sv-error { color: #c0392b; font-size: 14px; margin-top: 12px; text-align: center; }
 
-        /* ── Done state ── */
-        .survey-done {
+        /* ── Done ── */
+        .sv-done {
           background: #fff;
           border: 1px solid #e8e5e0;
           border-radius: 12px;
@@ -296,25 +469,16 @@ export default function SurveyPage() {
           text-align: center;
           margin-top: 48px;
         }
-        .survey-done-check {
-          font-size: 40px;
-          margin-bottom: 16px;
-        }
-        .survey-done h2 {
+        .sv-done-check { font-size: 40px; margin-bottom: 16px; }
+        .sv-done h2 {
           font-family: 'Montserrat', sans-serif;
           font-size: 24px;
           font-weight: 800;
           color: #1a1a1a;
           margin-bottom: 12px;
         }
-        .survey-done p {
-          font-size: 16px;
-          color: #666;
-          line-height: 1.65;
-          max-width: 420px;
-          margin: 0 auto 28px;
-        }
-        .survey-done-link {
+        .sv-done p { font-size: 16px; color: #666; line-height: 1.65; max-width: 420px; margin: 0 auto 28px; }
+        .sv-done-link {
           display: inline-block;
           font-size: 14px;
           font-weight: 600;
@@ -324,8 +488,8 @@ export default function SurveyPage() {
         }
 
         /* ── Footer ── */
-        .survey-footer {
-          max-width: 640px;
+        .sv-footer {
+          max-width: 700px;
           margin: 0 auto;
           padding: 0 24px 48px;
           text-align: center;
@@ -333,25 +497,26 @@ export default function SurveyPage() {
           color: #bbb;
           line-height: 1.8;
         }
-        .survey-footer a { color: #999; text-decoration: underline; text-underline-offset: 3px; }
+        .sv-footer a { color: #999; text-decoration: underline; text-underline-offset: 3px; }
 
-        @media (max-width: 480px) {
-          .survey-form-wrap { padding: 32px 16px; }
-          .survey-q { padding: 22px 18px; }
+        @media (max-width: 560px) {
+          .sv-form-wrap { padding: 32px 16px; }
+          .sv-q { padding: 22px 18px; }
+          .sv-tier-grid { grid-template-columns: 1fr; }
         }
       `}</style>
 
-      <div className="survey-wrap">
+      <div className="sv-wrap">
 
         {/* Top bar */}
-        <div className="survey-topbar">
-          <Link href="/" className="survey-logo">Fly<span>IRL</span></Link>
-          <div className="survey-topbar-label">Kickstarter Survey</div>
+        <div className="sv-topbar">
+          <Link href="/" className="sv-logo">Fly<span>IRL</span></Link>
+          <div className="sv-topbar-label">Kickstarter Survey</div>
         </div>
 
         {/* Hero */}
-        <div className="survey-hero">
-          <div className="survey-eyebrow">2 minutes · Shapes the campaign</div>
+        <div className="sv-hero">
+          <div className="sv-eyebrow">2 minutes · Shapes the campaign</div>
           <h1>Help build the Kickstarter</h1>
           <p>
             Phase 1 is done. Now I need to know what reward tiers you&rsquo;d
@@ -360,88 +525,60 @@ export default function SurveyPage() {
           </p>
         </div>
 
-        <div className="survey-form-wrap">
+        <div className="sv-form-wrap">
           {status === "done" ? (
-            <div className="survey-done">
-              <div className="survey-done-check">✓</div>
+            <div className="sv-done">
+              <div className="sv-done-check">✓</div>
               <h2>Got it — thank you.</h2>
               <p>
                 Aaron reads every response personally. You&rsquo;ll hear from him
                 when the campaign is ready to launch.
               </p>
-              <Link href="/kickstarter" className="survey-done-link">
+              <Link href="/kickstarter" className="sv-done-link">
                 Browse the Kickstarter draft and reward tiers →
               </Link>
             </div>
           ) : (
             <form onSubmit={onSubmit}>
 
-              {/* Q1 — Tier interest */}
-              <div className="survey-q">
-                <div className="survey-q-label">Which reward tiers sound interesting to you?</div>
-                <div className="survey-q-hint">Check all that apply.</div>
-                <div className="survey-options">
-                  {TIERS.map((t) => (
-                    <label
-                      key={t.id}
-                      className={`survey-option${tiers.includes(t.id) ? " selected" : ""}`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={tiers.includes(t.id)}
-                        onChange={() => toggleTier(t.id)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{t.label}</div>
-                        <div className="survey-option-sub">{t.sub}</div>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Q2 — Price ceiling */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  What&rsquo;s the most you&rsquo;d realistically pay — knowing delivery is 5–10 years out?
-                </div>
-                <div className="survey-q-hint">Single choice.</div>
-                <div className="survey-options">
-                  {[
-                    "Under $50",
-                    "$50–$150",
-                    "$150–$500",
-                    "$500–$2,000",
-                    "$2,000+",
-                    "Nothing — but I'd help in other ways",
-                  ].map((opt) => (
-                    <label
-                      key={opt}
-                      className={`survey-option${pricePoint === opt ? " selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="pricePoint"
-                        checked={pricePoint === opt}
-                        onChange={() => setPricePoint(opt)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{opt}</div>
-                      </div>
-                    </label>
-                  ))}
+              {/* Q1 — Tier cards */}
+              <div className="sv-q">
+                <div className="sv-q-label">Which reward tiers sound interesting to you?</div>
+                <div className="sv-q-hint">Select all that apply — click any card to check it.</div>
+                <div className="sv-tier-grid">
+                  {TIERS.map((t) => {
+                    const sel = tiers.includes(t.id);
+                    return (
+                      <label key={t.id} className={`sv-tier-card${sel ? " selected" : ""}`}>
+                        <input type="checkbox" checked={sel} onChange={() => toggleTier(t.id)} />
+                        <div className="sv-tier-check">
+                          <span className="sv-tier-check-mark">✓</span>
+                        </div>
+                        <div className="sv-tier-price">{t.price}</div>
+                        <div className="sv-tier-name">{t.name}</div>
+                        <div className="sv-tier-desc">{t.desc}</div>
+                        <ul className="sv-tier-perks">
+                          {t.perks.map((p) => <li key={p}>{p}</li>)}
+                        </ul>
+                      </label>
+                    );
+                  })}
+                  {/* None option */}
+                  <label className={`sv-tier-card sv-tier-none${tiers.includes("none") ? " selected" : ""}`}>
+                    <input type="checkbox" checked={tiers.includes("none")} onChange={() => toggleTier("none")} />
+                    <div className="sv-tier-check">
+                      <span className="sv-tier-check-mark">✓</span>
+                    </div>
+                    <div className="sv-tier-price">None of these — but I have ideas (tell us below)</div>
+                  </label>
                 </div>
               </div>
 
               {/* Q3 — Day-1 pledge */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  Would you commit to backing on launch day?
-                </div>
-                <div className="survey-q-hint">
-                  The first 24 hours determine a Kickstarter&rsquo;s algorithmic rank.
-                </div>
-                <div className="survey-options">
+              <div className="sv-q">
+                <div className="sv-q-label">Would you commit to backing on launch day?</div>
+                <div className="sv-q-hint">The first 24 hours determine a Kickstarter&rsquo;s algorithmic rank.</div>
+                <div className="sv-options">
                   {[
                     { val: "yes", label: "Yes, definitely — just tell me when" },
                     { val: "probably", label: "Probably, if the tier feels right" },
@@ -449,177 +586,147 @@ export default function SurveyPage() {
                     { val: "probably-not", label: "Probably not" },
                     { val: "no", label: "No" },
                   ].map((opt) => (
-                    <label
-                      key={opt.val}
-                      className={`survey-option${day1 === opt.val ? " selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="day1"
-                        checked={day1 === opt.val}
-                        onChange={() => setDay1(opt.val)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{opt.label}</div>
-                      </div>
+                    <label key={opt.val} className={`sv-option${day1 === opt.val ? " selected" : ""}`}>
+                      <input type="radio" name="day1" checked={day1 === opt.val} onChange={() => setDay1(opt.val)} />
+                      <div className="sv-option-main">{opt.label}</div>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* Q4 — Referral */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  Would you share the campaign with your network when it goes live?
-                </div>
-                <div className="survey-options">
+              <div className="sv-q">
+                <div className="sv-q-label">Would you share the campaign with your network when it goes live?</div>
+                <div className="sv-options">
                   {[
                     { val: "yes", label: "Yes — I already know people who'd dig this" },
                     { val: "maybe", label: "Maybe — if there's an easy way to do it" },
                     { val: "probably-not", label: "Probably not" },
                     { val: "no", label: "No" },
                   ].map((opt) => (
-                    <label
-                      key={opt.val}
-                      className={`survey-option${referral === opt.val ? " selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="referral"
-                        checked={referral === opt.val}
-                        onChange={() => setReferral(opt.val)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{opt.label}</div>
-                      </div>
+                    <label key={opt.val} className={`sv-option${referral === opt.val ? " selected" : ""}`}>
+                      <input type="radio" name="referral" checked={referral === opt.val} onChange={() => setReferral(opt.val)} />
+                      <div className="sv-option-main">{opt.label}</div>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* Q5 — STOL Cub */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  Bonus concept: a 1-hour backcountry bush plane thrill ride near Las Vegas, deliverable within a year, starting at ~$250. Interested?
+              <div className="sv-q">
+                <div className="sv-q-label" style={{ marginBottom: 16 }}>
+                  Kickstarter-ready option: available within a year
                 </div>
-                <div className="survey-options">
+                <div className="sv-concept-card sv-concept--cub">
+                  <div className="sv-concept-tag">Campaign Option 2 · Deliverable within a year</div>
+                  <div className="sv-concept-goal">Available Now</div>
+                  <h4>The STOL Cub Experience</h4>
+                  <p>
+                    A 1-hour discovery flight in a backcountry bush plane — near Las Vegas, no license required.
+                    Real stick, real terrain, a master CFI co-flying the whole time. Starting ~$250.
+                    This one is deliverable within a year and proves demand for everything that follows.
+                  </p>
+                </div>
+                <div className="sv-options">
                   {[
                     { val: "yes", label: "Yes — that sounds amazing" },
                     { val: "maybe", label: "Maybe — tell me more" },
                     { val: "no", label: "Not for me" },
                     { val: "wtf-is-stol", label: "What's a STOL Cub? (we'll explain)" },
                   ].map((opt) => (
-                    <label
-                      key={opt.val}
-                      className={`survey-option${stol === opt.val ? " selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="stol"
-                        checked={stol === opt.val}
-                        onChange={() => setStol(opt.val)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{opt.label}</div>
-                      </div>
+                    <label key={opt.val} className={`sv-option${stol === opt.val ? " selected" : ""}`}>
+                      <input type="radio" name="stol" checked={stol === opt.val} onChange={() => setStol(opt.val)} />
+                      <div className="sv-option-main">{opt.label}</div>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* Q6 — The plane */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  There&rsquo;s no purpose-built aircraft for this activity — the only one is made in China and going nowhere. We&rsquo;d have to build it here. Would you back a separate ~$500K campaign to design and build an American-made plane for the SkyPark?
+              <div className="sv-q">
+                <div className="sv-q-label" style={{ marginBottom: 16 }}>
+                  Kickstarter-ready option: build the aircraft nobody built yet
                 </div>
-                <div className="survey-q-hint">
-                  Sub-$1M aircraft. Rugged, reliable, overengineered safety. Aaron has the aerospace connections.
+                <div className="sv-concept-card sv-concept--plane">
+                  <div className="sv-concept-tag">Campaign Option 1 · $500K goal</div>
+                  <div className="sv-concept-goal">Rural Air Mobility</div>
+                  <h4>The Aircraft That Makes It All Possible</h4>
+                  <p>
+                    The tech exists — quadcopter-style safety, autonomous landing — it&rsquo;s just not being
+                    built for this use case. As work goes virtual and people leave big cities, Rural Air Mobility
+                    is the real opportunity. A single-occupant, affordable sky uber. We build it here: sub-$1M,
+                    American-made, rugged. $500K gets the design team rolling.
+                  </p>
                 </div>
-                <div className="survey-options">
+                <div className="sv-options">
                   {[
                     { val: "yes", label: "Yes — that's actually exciting" },
                     { val: "maybe", label: "Maybe — depends on the details" },
                     { val: "focus", label: "Stick to the SkyPark first" },
                     { val: "no", label: "No" },
                   ].map((opt) => (
-                    <label
-                      key={opt.val}
-                      className={`survey-option${plane === opt.val ? " selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="plane"
-                        checked={plane === opt.val}
-                        onChange={() => setPlane(opt.val)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{opt.label}</div>
-                      </div>
+                    <label key={opt.val} className={`sv-option${plane === opt.val ? " selected" : ""}`}>
+                      <input type="radio" name="plane" checked={plane === opt.val} onChange={() => setPlane(opt.val)} />
+                      <div className="sv-option-main">{opt.label}</div>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* Q7 — X-Prize */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  Wildcard: a $50K crowdfunding goal to fund a university X-Prize — aerospace engineering teams compete to design the aircraft. Much smaller ask, shared IP, same outcome.
+              <div className="sv-q">
+                <div className="sv-q-label" style={{ marginBottom: 16 }}>
+                  Kickstarter-ready option: the smallest ask with the biggest leverage
                 </div>
-                <div className="survey-q-hint">
-                  FlyIRL is a business, not a product. Whatever gets it off the ground.
+                <div className="sv-concept-card sv-concept--xprize">
+                  <div className="sv-concept-tag">Campaign Option 3 · $50K goal</div>
+                  <div className="sv-concept-goal">Smallest Ask, Biggest Leverage</div>
+                  <h4>A University X-Prize</h4>
+                  <p>
+                    $50K to run a Moonshot competition for aerospace engineering departments at top universities.
+                    Student and faculty teams compete to design what we&rsquo;d otherwise fund internally at $500K.
+                    Yes, we&rsquo;d share IP — but FlyIRL is a business, not a product. Whatever gets
+                    the right aircraft designed is a win.
+                  </p>
                 </div>
-                <div className="survey-options">
+                <div className="sv-options">
                   {[
                     { val: "yes", label: "Love it — students and professors are underrated" },
                     { val: "maybe", label: "Interesting — I'd want to know more" },
                     { val: "skeptical", label: "Skeptical about the IP tradeoff" },
                     { val: "no", label: "No opinion" },
                   ].map((opt) => (
-                    <label
-                      key={opt.val}
-                      className={`survey-option${xprize === opt.val ? " selected" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="xprize"
-                        checked={xprize === opt.val}
-                        onChange={() => setXprize(opt.val)}
-                      />
-                      <div className="survey-option-text">
-                        <div className="survey-option-main">{opt.label}</div>
-                      </div>
+                    <label key={opt.val} className={`sv-option${xprize === opt.val ? " selected" : ""}`}>
+                      <input type="radio" name="xprize" checked={xprize === opt.val} onChange={() => setXprize(opt.val)} />
+                      <div className="sv-option-main">{opt.label}</div>
                     </label>
                   ))}
                 </div>
               </div>
 
               {/* Q8 — Ideas */}
-              <div className="survey-q">
-                <div className="survey-q-label">
-                  Tier ideas, feedback, or anything else you want Aaron to see?
-                </div>
-                <div className="survey-q-hint">
-                  Wild ideas welcome. If it makes the campaign, you get it free or at cost.
-                </div>
+              <div className="sv-q">
+                <div className="sv-q-label">Tier ideas, feedback, or anything else you want Aaron to see?</div>
+                <div className="sv-q-hint">Wild ideas welcome. If it makes the campaign, you get it free or at cost.</div>
                 <textarea
-                  className="survey-textarea"
-                  placeholder="e.g. &quot;I'd pay $200 for a quarterly livestream from inside development&quot;"
+                  className="sv-textarea"
+                  placeholder={'e.g. "I\'d pay $200 for a quarterly livestream from inside development"'}
                   value={ideas}
                   onChange={(e) => setIdeas(e.target.value.slice(0, 500))}
                 />
-                <div className="survey-char-count">{ideas.length}/500</div>
+                <div className="sv-char-count">{ideas.length}/500</div>
               </div>
 
-              {/* Q7 — Email */}
-              <div className="survey-q">
-                <div className="survey-q-label">Your email address</div>
-                <div className="survey-q-hint">
+              {/* Q9 — Email */}
+              <div className="sv-q">
+                <div className="sv-q-label">Your email address</div>
+                <div className="sv-q-hint">
                   Optional — but needed if you want credit for an idea that makes it in,
                   or to be notified on launch day.
                 </div>
                 <input
                   type="email"
-                  className="survey-email-input"
+                  className="sv-email-input"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -627,16 +734,12 @@ export default function SurveyPage() {
               </div>
 
               {/* Submit */}
-              <div className="survey-submit-wrap">
-                <button
-                  type="submit"
-                  className="survey-submit-btn"
-                  disabled={status === "saving"}
-                >
+              <div className="sv-submit-wrap">
+                <button type="submit" className="sv-submit-btn" disabled={status === "saving"}>
                   {status === "saving" ? "Sending..." : "Send My Answers →"}
                 </button>
                 {status === "error" && errorMsg && (
-                  <div className="survey-error">{errorMsg}</div>
+                  <div className="sv-error">{errorMsg}</div>
                 )}
               </div>
 
@@ -645,7 +748,7 @@ export default function SurveyPage() {
         </div>
 
         {/* Footer */}
-        <div className="survey-footer">
+        <div className="sv-footer">
           <p>
             <Link href="/kickstarter">Browse the Kickstarter draft</Link>
             &nbsp;·&nbsp;
