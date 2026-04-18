@@ -21,3 +21,6 @@ Thumbs.db
 # misc
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude session logs
+logs/
