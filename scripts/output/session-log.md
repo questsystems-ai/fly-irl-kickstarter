@@ -120,3 +120,36 @@ The two new answers (`plane_interest`, `xprize_interest`) are included in the AP
 
 `/xprize` (… [truncated]
 [21:41] [CLAUDE] There are uncommitted changes — 4 new pages (`/update`, `/survey`, `/plane`, `/xprize`) plus `scripts/drafts/` and config files. Want me to commit all of this before wrapping up?
+
+---
+### Session 2026-04-17 ~09:00–14:00 — Phase 1 complete: founder letter + survey + wildcard campaign pages
+
+**Key decisions/insights:**
+- [Archer/Joby framing]: correct comparison is "FAA approval for commercially un-piloted operations" — their initial commercial routes ARE piloted. Fixed in /update letter.
+- [Quote]: "worth (almost ;) more than gold" — self-deprecating hedge, sounds more like Aaron
+- [Survey]: 9 questions: tier interest (checkboxes), price ceiling, day-1 pledge, referral, STOL, plane, X-Prize, open ideas, email
+- [Page strategy]: /update, /plane, /xprize linked FROM Mailchimp email, not from main site nav
+- [Email dedup]: /api/lead deduplicates gracefully — soft interest forms on /plane and /xprize reuse it safely with different `source` fields
+- [VIP variant]: /update/vip not yet built — notes at bottom of scripts/drafts/letter-page-draft.tsx
+
+**Ideas captured:**
+- X-Prize open IP is a feature: positions FlyIRL as the org that made the aircraft design happen
+- Title Sponsor tier names the competition in perpetuity — strong vanity hook
+- STOL Cub → Plane → X-Prize = natural progression of tangible short-timeline deliverables
+- University targets: MIT, Georgia Tech, Embry-Riddle, Cal Poly, UT Austin, U Michigan
+
+**Actions taken:**
+- `app/update/page.tsx` — founder letter, mobile-first, stats strip, letter body, wildcards, survey CTA
+- `app/survey/page.tsx` — 9-question form, localStorage email pre-fill, submits to /api/survey
+- `app/plane/page.tsx` — $500K aircraft campaign, blue accent, 6 tiers, sticky back bar
+- `app/xprize/page.tsx` — $50K X-Prize campaign, purple accent, 6 tiers, how-it-works cards
+- `scripts/drafts/survey-draft.md` + `letter-page-draft.tsx` — reference drafts
+- Committed: d157b6a
+
+**Pending next session:**
+- Supabase: add `price_point`, `stol_interest`, `plane_interest`, `xprize_interest` to `survey_responses` table
+- Wire /update link into /kickstarter page
+- Add Mailchimp "📱 View web version →" header link pointing to /update
+- Build /update/vip for reservation holders
+- Link /plane and /xprize from the wildcard aside blocks in /update
+---
