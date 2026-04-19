@@ -311,3 +311,137 @@ If none of that works, the nuclear option is just creating it with a throwaway n
 What platform are you trying on — mobile, desktop app, or browser?
 [11:01] [CLAUDE] Done. Want me to commit and push now, or are there more changes to batch in first?
 [11:10] [CLAUDE] Pushed — Vercel deploying now.
+[12:33] [CLAUDE] ---
+
+## Session Complete
+
+**Committed:** yes — e46bd25, d5b38cf  
+**Handoffs:** `scripts/output/session-handoff-20260418-1600.md`  
+**Log:** `scripts/output/session-log.md` updated  
+**Key takeaway:** The update page is now a full campaign hub — three illustrated Kickstarter-ready options, a movement section with live Discord, a floating survey button, and a survey page that matches the visual language. Supabase is wired up and ready to collect votes and responses.
+
+Ready to close. Next session: run `/initiate` to pick up where we left off.
+[09:20] [CLAUDE] No crash — the previous session terminated cleanly (the timestamp delta was just file system lag).
+
+---
+
+## Session Briefing
+
+### Model
+Running as Sonnet (cost-aware mode active)
+
+### Project: fly-irl-kickstarter
+- **Branch:** `main` · dirty (2 untracked images, modified skill/log)
+- **Last commit:** `d5b38cf` — Add session handoff and log for 2026-04-18
+
+### Last Session (2026-04-18)
+- Built `/update` campaign hub — 3 Kickstarter-ready option cards (Aircraft/RAM, STOL Cub, X-Prize) with real images
+- Added `/cub` page (hero video, experience cards, reward tiers)
+- Built `LikeWidget` floating vote widget on `/plane`, `/cub`, `/xprize`
+- Wired `campaign_votes` + `kickstarter_survey_responses` Supabase tables
+- Overhauled `/survey` — tier cards + concept cards with accent color UI
+- Discord … [truncated]
+[09:21] [CLAUDE] Done. `app/page.tsx` now redirects `/` → `/update`. Push to main and Vercel will auto-deploy.
+
+Want to commit and push, or anything else first?
+[09:27] [CLAUDE] Pushed. Vercel is deploying now — `fly-irl-kickstarter.vercel.app` will land on `/update` in a minute or two.
+[09:46] [CLAUDE] Got it — so you have:
+
+- **General list** (`FlyIRL Pre-Launch`) — ~961 contacts, active welcome flow
+- **VIP list** (`FlyIRL VIP`) — draft, presumably your reservation holders
+
+What do you need for these emails? A few directions this could go:
+
+1. **Campaign update email** — write copy for both lists pointing them to `/update` to see the 3 Kickstarter options and vote/survey
+2. **VIP-specific email** — different tone/content for reservation holders (early access framing, exclusive feel)
+3. **Both** — general version + a VIP variant with tailored copy
+
+Also — are you sending these as one-off campaigns (blast) or adding them to the existing automation flows? The VIP flow is still in Draft, so that might need to be set up first.
+[09:48] [CLAUDE] Got it. One question before I write — what's the URL for the marketing dashboard? I don't have it in the project files.
+
+(And do you want a subject line suggestion for each, or just the body?)
+[09:49] [CLAUDE] Here are both:
+
+---
+
+## General Email — FlyIRL Pre-Launch List (~961)
+
+**Subject:** What happens next with FlyIRL
+
+**Preview text:** Three paths. One survey. Your vote actually matters here.
+
+---
+
+Hey [First Name],
+
+It's been a minute — and a lot has happened.
+
+When I launched this pre-launch campaign, I honestly wasn't sure what to expect. What I got was over 1,000 signups in under a month at under $2 a lead. That's... some form of market validation. (In a mass form email? ;)
+
+That result was enough to convince a small group of investors to take a bet on me. Not a lot — but enough to buy me time to do this right instead of rushing it.
+
+So now I have a real decision to make: **what does the Kickstarter actually look like?**
+
+I've narrowed it down to three options, and I genuinely want your… [truncated]
+[09:51] [CLAUDE] In Mailchimp:
+
+1. **Create → Email** (top nav, green button)
+2. Choose **Regular** email
+3. **To** field — click "Add recipients" → select your audience (`FlyIRL Pre-Launch` for general, `Email tagged customers` audience/tag for VIP)
+4. Fill in **From**, **Subject**, **Preview text**
+5. **Design Email** → use their drag-and-drop or paste into a text block
+6. **Send** or **Schedule**
+
+For the VIP list — when you hit "Add recipients" look for a **Tag** or **Segment** filter. Your 35 are tagged, so you'll pick the audience first then filter by tag to narrow it down.
+
+Want me to format either email as clean HTML you can paste straight into Mailchimp's code editor?
+[10:05] [CLAUDE] Agreed — more direct and less leading.
+
+Which email, and which line is it on? I'll find it and swap it.
+[10:08] [CLAUDE] Pushed. Vercel deploying now.
+[10:17] [CLAUDE] Here's what the research turned up — this is pretty important for how you structure the campaign:
+
+---
+
+## Short version
+
+**Neither platform bans long delivery horizons explicitly** — but there are real landmines.
+
+### The key risks for FlyIRL specifically
+
+**1. Kickstarter may decline the campaign outright.**
+Aviation is "heavily regulated + potentially dangerous" — Kickstarter's rules say to contact them before launching anything in that category. No guarantee they approve it.
+
+**2. Flight-dependent rewards are the dangerous tier.**
+The FDA analog is directly applicable: if you take consumer money for a flight experience that requires FAA approval you don't have yet, the FTC could treat it similarly to taking pre-orders for an unapproved medical device. This is the real exposure.
+
+**3. L… [truncated]
+[10:41] [CLAUDE] That's the right read. Disclaimers + your own clear ToS is the standard "good faith" shield — as long as you're communicating honestly and not going silent, the FTC exposure is minimal at your scale.
+
+And yeah, Reg CF is a whole different animal — audited financials, Form C filing, ongoing reporting. Not "bedroom project" territory. Worth knowing it exists when the time comes.
+
+For now you're just running a signal-gathering operation, which is exactly what the survey/vote setup is for. Nothing to build right now.
+
+What's next?
+
+---
+### Session 2026-04-19 ~09:20-11:00 — Landing redirect, FAB polish, email copy, crowdfunding research
+
+**Key decisions/insights:**
+- [Default landing]: `/` now redirects to `/update` (was `/kickstarter`)
+- [VIP list]: The 35 "Email tagged customers" are the VIPs — not the "FlyIRL VIP" draft automation
+- [Marketing dashboard URL]: `https://vip-marketing-dashboard.vercel.app/` — goes in VIP email only
+- [Crowdfunding strategy]: Disclaimers + internal ToS is the right approach for now ("pending FAA approval, no refunds if not approved"); Reg CF/equity crowdfunding is a future-state conversation when development is further along
+- [STOL Cub]: Cleanest Kickstarter play — existing product, no FAA risk, deliverable within a year
+- Kickstarter may decline aviation campaigns outright — must contact them pre-launch before committing
+
+**Ideas captured:**
+- Internal backer ToS / disclaimer page needed before any campaign launches (FAA approval language)
+- Long-horizon crowdfunding shield = good-faith communication + clear disclaimers, not legal complexity
+
+**Actions taken:**
+- `app/page.tsx`: root redirect → `/update`
+- `app/update/page.tsx`: survey FAB now pulses (3.5s interval, 2s delay); Discord FAB added bottom-right
+- Committed `public/images/cub-aircraft.png` + `cub-aircraft2.png` (were untracked)
+- Drafted general + VIP Mailchimp emails — copy in session log, not yet sent
+---

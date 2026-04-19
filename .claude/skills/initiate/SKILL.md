@@ -52,20 +52,22 @@ For each project repo, check whether the most recent Claude transcript is newer 
 
 **Detection (run for each repo, including the parent folder itself):**
 ```bash
-# Most recent JSONL for parent project:
-ls -t /c/Users/aaron/.claude/projects/C--Users-aaron-Documents-a-i-rons-projects/*.jsonl 2>/dev/null | head -1
+# Previous session JSONL for parent project (head -2 | tail -1 skips the current session):
+ls -t /c/Users/aaron/.claude/projects/C--Users-aaron-Documents-a-i-rons-projects/*.jsonl 2>/dev/null | head -2 | tail -1
 
 # Most recent handoff for PARENT folder (check this too — not just sub-repos):
 ls -t scripts/output/session-handoff*.md 2>/dev/null | head -1
 
-# Most recent JSONL for a sub-repo (replace {repo} with folder name, e.g. romantasy-v1):
-ls -t "/c/Users/aaron/.claude/projects/C--Users-aaron-Documents-a-i-rons-projects-{repo}/*.jsonl" 2>/dev/null | head -1
+# Previous session JSONL for a sub-repo (replace {repo} with folder name, e.g. romantasy-v1):
+ls -t "/c/Users/aaron/.claude/projects/C--Users-aaron-Documents-a-i-rons-projects-{repo}/*.jsonl" 2>/dev/null | head -2 | tail -1
 
 # Most recent handoff for a sub-repo:
 ls -t {repo}/scripts/output/session-handoff*.md 2>/dev/null | head -1
 ```
 
-Compare mtimes. If the JSONL file is **newer** than the newest handoff → crashed/unterminated session.
+**Important:** Always use `head -2 | tail -1` (not `head -1`) for the JSONL. `head -1` returns the current session's own file, which is always newer than any handoff — that's a false positive. The previous session is `head -2 | tail -1`.
+
+Compare mtimes. If the previous session JSONL is **newer** than the newest handoff → crashed/unterminated session.
 
 **Recovery (for each crashed session found):**
 ```bash
@@ -105,7 +107,9 @@ tail -c 40000 <jsonl_path> | grep -ao '"text":"[^"]\{80,\}' | sed 's/"text":"//;
 
 This yields ~1–2KB per session. Five sessions = ~5–10KB total — negligible context overhead.
 
-**Hold the digests as a compact "Session History" block.** Do not print them in the briefing — just hold them in context silently. When the user asks about something from a prior session, answer from this loaded context directly. For verbatim recall ("give me that exact prompt"), grep the specific JSONL:
+**After loading digests, cross-check against the handoff:** If the most recent digest (second JSONL, i.e. previous session) contains substantive work that is **not reflected in the most recent handoff file**, that digest is the ground truth for "last session" — surface it in the briefing instead of (or in addition to) the handoff. The handoff is only authoritative when it's newer than the previous session JSONL.
+
+**Hold the digests as a compact "Session History" block.** Do not print them in the briefing unless they override the handoff (see above) — just hold them in context silently. When the user asks about something from a prior session, answer from this loaded context directly. For verbatim recall ("give me that exact prompt"), grep the specific JSONL:
 ```bash
 grep -ao '"text":"[^"]*<keyword>[^"]*"' <jsonl_path> | sed 's/"text":"//;s/"$//' | head -20
 ```
