@@ -491,7 +491,7 @@ export default function UpdateLetterPage() {
         }
         .letter-footer a { color: #999; text-decoration: underline; text-underline-offset: 3px; }
 
-        /* ── Fixed survey button ── */
+        /* ── Fixed FABs ── */
         .update-survey-fab {
           position: fixed;
           bottom: 24px;
@@ -508,15 +508,39 @@ export default function UpdateLetterPage() {
           box-shadow: 0 4px 20px rgba(0,0,0,0.25);
           transition: opacity 0.15s, transform 0.15s;
           white-space: nowrap;
+          animation: fab-slide-in 0.4s ease, fab-pulse 3.5s ease-in-out 2s infinite;
+        }
+        .update-survey-fab:hover { opacity: 0.88; transform: translateY(-2px); animation: fab-slide-in 0s, none; }
+        .update-discord-fab {
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          z-index: 9000;
+          background: #5865F2;
+          color: #fff;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 700;
+          font-size: 13px;
+          padding: 12px 18px;
+          border-radius: 50px;
+          text-decoration: none;
+          box-shadow: 0 4px 20px rgba(88,101,242,0.4);
+          transition: opacity 0.15s, transform 0.15s;
+          white-space: nowrap;
           animation: fab-slide-in 0.4s ease;
         }
-        .update-survey-fab:hover { opacity: 0.88; transform: translateY(-2px); }
+        .update-discord-fab:hover { opacity: 0.88; transform: translateY(-2px); }
         @keyframes fab-slide-in {
           from { opacity: 0; transform: translateY(12px); }
           to   { opacity: 1; transform: translateY(0); }
         }
+        @keyframes fab-pulse {
+          0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.25); transform: translateY(0); }
+          50% { box-shadow: 0 4px 28px rgba(0,0,0,0.45), 0 0 0 6px rgba(26,26,26,0.12); transform: translateY(-3px); }
+        }
         @media (max-width: 500px) {
           .update-survey-fab { font-size: 12px; padding: 10px 14px; bottom: 16px; left: 16px; }
+          .update-discord-fab { font-size: 12px; padding: 10px 14px; bottom: 16px; right: 16px; }
         }
 
         /* ── Mobile ── */
@@ -864,6 +888,11 @@ export default function UpdateLetterPage() {
       <Link href="/survey" className="update-survey-fab">
         Help! Another survey! ;)
       </Link>
+
+      {/* Fixed Discord FAB */}
+      <a href="https://discord.gg/5vBd8YP8" target="_blank" rel="noreferrer" className="update-discord-fab">
+        💬 Join the Discord Discussion!
+      </a>
     </>
   );
 }
