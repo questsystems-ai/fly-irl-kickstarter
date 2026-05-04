@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 
 export default function UpdateLetterPage() {
   const [copied, setCopied] = useState(false);
@@ -18,6 +19,7 @@ export default function UpdateLetterPage() {
         .letter-wrap {
           background: #f9f8f6;
           min-height: 100vh;
+          padding-top: 76px;
           padding-bottom: 80px;
         }
 
@@ -557,6 +559,8 @@ export default function UpdateLetterPage() {
           .letter-survey-cta { padding: 28px 20px; }
         }
       `}</style>
+
+      <Nav />
 
       <div className="letter-wrap">
 
