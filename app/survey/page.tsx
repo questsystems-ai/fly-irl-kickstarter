@@ -55,9 +55,6 @@ export default function SurveyPage() {
   const [pricePoint, setPricePoint] = useState("");
   const [day1, setDay1] = useState("");
   const [referral, setReferral] = useState("");
-  const [stol, setStol] = useState("");
-  const [plane, setPlane] = useState("");
-  const [xprize, setXprize] = useState("");
   const [ideas, setIdeas] = useState("");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
@@ -88,9 +85,6 @@ export default function SurveyPage() {
           price_point: pricePoint || null,
           day1_pledge: day1 || null,
           referral: referral || null,
-          stol_interest: stol || null,
-          plane_interest: plane || null,
-          xprize_interest: xprize || null,
           ideas: ideas.trim() || null,
         }),
       });
@@ -612,99 +606,7 @@ export default function SurveyPage() {
                 </div>
               </div>
 
-              {/* Q5 — STOL Cub */}
-              <div className="sv-q">
-                <div className="sv-q-label" style={{ marginBottom: 16 }}>
-                  Kickstarter-ready option: available within a year
-                </div>
-                <div className="sv-concept-card sv-concept--cub">
-                  <div className="sv-concept-tag">Campaign Option 2 · Deliverable within a year</div>
-                  <div className="sv-concept-goal">Available Now</div>
-                  <h4>The STOL Cub Experience</h4>
-                  <p>
-                    A 1-hour discovery flight in a backcountry bush plane — near Las Vegas, no license required.
-                    Real stick, real terrain, a master CFI co-flying the whole time. Starting ~$250.
-                    This one is deliverable within a year and proves demand for everything that follows.
-                  </p>
-                </div>
-                <div className="sv-options">
-                  {[
-                    { val: "yes", label: "Yes — that sounds amazing" },
-                    { val: "maybe", label: "Maybe — tell me more" },
-                    { val: "no", label: "Not for me" },
-                    { val: "wtf-is-stol", label: "What's a STOL Cub? (we'll explain)" },
-                  ].map((opt) => (
-                    <label key={opt.val} className={`sv-option${stol === opt.val ? " selected" : ""}`}>
-                      <input type="radio" name="stol" checked={stol === opt.val} onChange={() => setStol(opt.val)} />
-                      <div className="sv-option-main">{opt.label}</div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Q6 — The plane */}
-              <div className="sv-q">
-                <div className="sv-q-label" style={{ marginBottom: 16 }}>
-                  Kickstarter-ready option: build the aircraft nobody built yet
-                </div>
-                <div className="sv-concept-card sv-concept--plane">
-                  <div className="sv-concept-tag">Campaign Option 1 · $500K goal</div>
-                  <div className="sv-concept-goal">Rural Air Mobility</div>
-                  <h4>The Aircraft That Makes It All Possible</h4>
-                  <p>
-                    The tech exists — quadcopter-style safety, autonomous landing — it&rsquo;s just not being
-                    built for this use case. As work goes virtual and people leave big cities, Rural Air Mobility
-                    is the real opportunity. A single-occupant, affordable sky uber. We build it here: sub-$1M,
-                    American-made, rugged. $500K gets the design team rolling.
-                  </p>
-                </div>
-                <div className="sv-options">
-                  {[
-                    { val: "yes", label: "Yes — that's actually exciting" },
-                    { val: "maybe", label: "Maybe — depends on the details" },
-                    { val: "focus", label: "Stick to the SkyPark first" },
-                    { val: "no", label: "No" },
-                  ].map((opt) => (
-                    <label key={opt.val} className={`sv-option${plane === opt.val ? " selected" : ""}`}>
-                      <input type="radio" name="plane" checked={plane === opt.val} onChange={() => setPlane(opt.val)} />
-                      <div className="sv-option-main">{opt.label}</div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Q7 — X-Prize */}
-              <div className="sv-q">
-                <div className="sv-q-label" style={{ marginBottom: 16 }}>
-                  Kickstarter-ready option: the smallest ask with the biggest leverage
-                </div>
-                <div className="sv-concept-card sv-concept--xprize">
-                  <div className="sv-concept-tag">Campaign Option 3 · $50K goal</div>
-                  <div className="sv-concept-goal">Smallest Ask, Biggest Leverage</div>
-                  <h4>A University X-Prize</h4>
-                  <p>
-                    $50K to run a Moonshot competition for aerospace engineering departments at top universities.
-                    Student and faculty teams compete to design what we&rsquo;d otherwise fund internally at $500K.
-                    Yes, we&rsquo;d share IP — but FlyIRL is a business, not a product. Whatever gets
-                    the right aircraft designed is a win.
-                  </p>
-                </div>
-                <div className="sv-options">
-                  {[
-                    { val: "yes", label: "Love it — students and professors are underrated" },
-                    { val: "maybe", label: "Interesting — I'd want to know more" },
-                    { val: "skeptical", label: "Skeptical about the IP tradeoff" },
-                    { val: "no", label: "No opinion" },
-                  ].map((opt) => (
-                    <label key={opt.val} className={`sv-option${xprize === opt.val ? " selected" : ""}`}>
-                      <input type="radio" name="xprize" checked={xprize === opt.val} onChange={() => setXprize(opt.val)} />
-                      <div className="sv-option-main">{opt.label}</div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Q8 — Ideas */}
+              {/* Q5 — Ideas */}
               <div className="sv-q">
                 <div className="sv-q-label">Tier ideas, feedback, or anything else you want Aaron to see?</div>
                 <div className="sv-q-hint">Wild ideas welcome. If it makes the campaign, you get it free or at cost.</div>
@@ -717,7 +619,7 @@ export default function SurveyPage() {
                 <div className="sv-char-count">{ideas.length}/500</div>
               </div>
 
-              {/* Q9 — Email */}
+              {/* Q6 — Email */}
               <div className="sv-q">
                 <div className="sv-q-label">Your email address</div>
                 <div className="sv-q-hint">
