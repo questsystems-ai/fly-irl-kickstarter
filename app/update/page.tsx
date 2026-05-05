@@ -838,7 +838,7 @@ export default function UpdateLetterPage() {
               I&rsquo;ve also created a Discord. The more discussion, the more ideas, the more
               questions — the better. Come argue with me about aircraft design, ask anything,
               or just lurk.{" "}
-              <a href="https://discord.gg/5vBd8YP8" target="_blank" rel="noreferrer">
+              <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer">
                 I&rsquo;ll be there for sure →
               </a>
             </p>
@@ -894,7 +894,7 @@ export default function UpdateLetterPage() {
       </Link>
 
       {/* Fixed Discord FAB */}
-      <a href="https://discord.gg/5vBd8YP8" target="_blank" rel="noreferrer" className="update-discord-fab">
+      <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer" className="update-discord-fab">
         💬 Join the Discord Discussion!
       </a>
     </>
