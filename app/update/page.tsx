@@ -84,6 +84,7 @@ export default function UpdateLetterPage() {
         /* ── Update section wrapper ── */
         .update-section {
           padding: 32px 16px 48px;
+          scroll-margin-top: 140px;
         }
         .update-card {
           max-width: 600px;
