@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Nav from "@/components/Nav";
 
 export default function UpdateLetterPage() {
   const [copied, setCopied] = useState(false);
@@ -19,7 +18,6 @@ export default function UpdateLetterPage() {
         .letter-wrap {
           background: #f9f8f6;
           min-height: 100vh;
-          padding-top: 76px;
           padding-bottom: 80px;
         }
 
@@ -223,37 +221,6 @@ export default function UpdateLetterPage() {
           margin-bottom: 4px;
         }
 
-        /* ── Movement section ── */
-        .letter-movement {
-          background: #1a1a1a;
-          border-radius: 12px;
-          padding: 36px 28px;
-          margin: 44px 0 36px;
-          color: #fff;
-        }
-        .letter-movement h3 {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 20px;
-          font-weight: 800;
-          color: #f7f3ea;
-          margin-bottom: 16px;
-          line-height: 1.3;
-        }
-        .letter-movement p {
-          font-size: 15px;
-          color: rgba(255,255,255,0.75);
-          line-height: 1.72;
-          margin-bottom: 16px;
-        }
-        .letter-movement p:last-child { margin-bottom: 0; }
-        .letter-movement strong { color: #fff; font-weight: 600; }
-        .letter-movement a {
-          color: #f7f3ea;
-          font-weight: 600;
-          text-decoration: underline;
-          text-underline-offset: 3px;
-        }
-
         /* ── STOL aside ── */
         .letter-aside {
           background: #f0ede8;
@@ -391,58 +358,6 @@ export default function UpdateLetterPage() {
         }
         .letter-footer a { color: #999; text-decoration: underline; text-underline-offset: 3px; }
 
-        /* ── Fixed FABs ── */
-        .update-survey-fab {
-          position: fixed;
-          bottom: 24px;
-          left: 24px;
-          z-index: 9000;
-          background: #1a1a1a;
-          color: #f7f3ea;
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 700;
-          font-size: 13px;
-          padding: 12px 18px;
-          border-radius: 50px;
-          text-decoration: none;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-          transition: opacity 0.15s, transform 0.15s;
-          white-space: nowrap;
-          animation: fab-slide-in 0.4s ease, fab-pulse 3.5s ease-in-out 2s infinite;
-        }
-        .update-survey-fab:hover { opacity: 0.88; transform: translateY(-2px); animation: fab-slide-in 0s, none; }
-        .update-discord-fab {
-          position: fixed;
-          bottom: 24px;
-          right: 24px;
-          z-index: 9000;
-          background: #5865F2;
-          color: #fff;
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 700;
-          font-size: 13px;
-          padding: 12px 18px;
-          border-radius: 50px;
-          text-decoration: none;
-          box-shadow: 0 4px 20px rgba(88,101,242,0.4);
-          transition: opacity 0.15s, transform 0.15s;
-          white-space: nowrap;
-          animation: fab-slide-in 0.4s ease;
-        }
-        .update-discord-fab:hover { opacity: 0.88; transform: translateY(-2px); }
-        @keyframes fab-slide-in {
-          from { opacity: 0; transform: translateY(12px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fab-pulse {
-          0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.25); transform: translateY(0); }
-          50% { box-shadow: 0 4px 28px rgba(0,0,0,0.45), 0 0 0 6px rgba(26,26,26,0.12); transform: translateY(-3px); }
-        }
-        @media (max-width: 500px) {
-          .update-survey-fab { font-size: 12px; padding: 10px 14px; bottom: 16px; left: 16px; }
-          .update-discord-fab { font-size: 12px; padding: 10px 14px; bottom: 16px; right: 16px; }
-        }
-
         /* ── Mobile ── */
         @media (max-width: 500px) {
           .letter-stats { flex-direction: column; }
@@ -457,8 +372,6 @@ export default function UpdateLetterPage() {
           .letter-survey-cta { padding: 28px 20px; }
         }
       `}</style>
-
-      <Nav />
 
       <div className="letter-wrap">
 
@@ -604,38 +517,75 @@ export default function UpdateLetterPage() {
             <hr /><div className="letter-divider-dot" /><hr />
           </div>
 
-          {/* Movement section */}
-          <div className="letter-movement">
-            <h3>FlyIRL is a movement — not just a startup</h3>
+          <div className="letter-aside">
+            <div className="letter-aside-label">Bonus idea — deliverable within a year</div>
+            <h4>The STOL Cub Experience</h4>
             <p>
-              At the end of the day, FlyIRL needs to become a <em>movement</em>. There
-              are plenty of people who want to fly but can&rsquo;t. This is a human dream —
-              probably as old as humans. It&rsquo;s more obvious and basic than any business
-              argument. It has the potential to truly access &ldquo;people power&rdquo; that gets
-              attention, drives markets, and shapes policy.
+              True backcountry bush plane flying — the safest, most adventurous aircraft
+              platform there is. I know the owner of one of the premier STOL training
+              schools in the US. A 1-hour thrill ride into gorgeous wilderness near Las Vegas,
+              as a Kickstarter tier, is absolutely doable within a year. Starting around $250.
             </p>
             <p>
-              So: spread the word. If you know anyone who&rsquo;s ever said &ldquo;I&rsquo;ve always wanted
-              to fly&rdquo; — send them to{" "}
-              <a href="https://fly-irl.com" target="_blank" rel="noreferrer">fly-irl.com</a>.
-              Email signups are still open on the main site. Every person in that list
-              is another vote that this matters.
+              It would also give Fly-IRL real manned flight operations on the books —
+              something the FAA smiles on for anyone pushing into the autonomy space.
+            </p>
+            <a href="https://www.thecubexperience.com/kickstarter" target="_blank" rel="noreferrer">
+              See The Cub Experience →
+            </a>
+          </div>
+
+          <div className="letter-aside letter-aside--dark">
+            <div className="letter-aside-label">Wildcard #1</div>
+            <h4>There&rsquo;s no purpose-built plane for this. Yet.</h4>
+            <p>
+              There is exactly one aircraft in the world designed for this kind of
+              activity. It&rsquo;s made in China, and the company doesn&rsquo;t appear to be
+              pursuing it seriously.{" "}
+              <em>(Look up the EHang VT30 if you&rsquo;re curious.)</em>
             </p>
             <p>
-              I&rsquo;ve also created a Discord. The more discussion, the more ideas, the more
-              questions — the better. Come argue with me about aircraft design, ask anything,
-              or just lurk.{" "}
-              <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer">
-                I&rsquo;ll be there for sure →
-              </a>
+              Which means: we&rsquo;re going to have to build it here. And honestly —
+              that&rsquo;s not a problem, it&rsquo;s an opportunity. This is not an inherently
+              expensive aircraft. Sub-$1M, designed and built American: rugged,
+              reliable, high-performance, with overengineered safety. I have the
+              aerospace connections to make it happen. A similar $500K Kickstarter
+              goal could get that rolling.
             </p>
+            <p>
+              The distinction worth making: FlyIRL is a <strong>business</strong>.
+              A new plane is <strong>bread and butter</strong>. Designing and building
+              aircraft to open up general aviation was born in this country — we know
+              how to do that. And of course, other nations with proven aero industries
+              and general aviation cultures are part of this story too. The point is:
+              one of these is a vision, the other is an engineering project.
+            </p>
+          </div>
+
+          <div className="letter-aside">
+            <div className="letter-aside-label">Wildcard #2 — smallest ask, biggest leverage</div>
+            <h4>An X-Prize for university aero teams</h4>
+            <p>
+              Here&rsquo;s an interesting crowdfunding option with a much smaller target:
+              ~$50,000 to fund a Moonshot challenge for aerospace engineering departments.
+              Student and professor teams compete to do the design work we&rsquo;d otherwise
+              fund internally at $500K.
+            </p>
+            <p>
+              Yes, we&rsquo;d share IP. But again — FlyIRL is a business, not a product.
+              Whatever gets it off the ground.
+            </p>
+          </div>
+
+          <div className="letter-divider">
+            <hr /><div className="letter-divider-dot" /><hr />
           </div>
 
           <div className="letter-signoff">
             <p>That&rsquo;s it for now.</p>
             <p>
-              You signed up because you believe flying should be for everyone.
-              So do I. Let&rsquo;s figure out which path gets us there first.
+              You&rsquo;ve already played a real part in moving this dream forward.
+              A million thank-yous.
             </p>
             <p className="sig-name">— Aaron</p>
             <p className="sig-title">Founder, FlyIRL / SkyPark</p>
@@ -646,18 +596,18 @@ export default function UpdateLetterPage() {
 
           {/* Survey CTA */}
           <div className="letter-survey-cta">
-            <h3>Which path do you want to see?</h3>
+            <h3>Take the survey</h3>
             <p>
-              2 minutes. Tells me which campaign to launch — and which tiers you&rsquo;d actually pay for.<br />
-              Suggest a tier that makes it in and you get it free (or at a serious discount).
+              2 minutes. Shapes the entire campaign.<br />
+              Suggest a tier that makes it in and you get it free.
             </p>
             <Link href="/survey" className="letter-cta-btn">
-              Take the Survey →
+              Fill Out the Survey →
             </Link>
             <span className="letter-cta-secondary">
-              Or browse{" "}
-              <Link href="/kickstarter">reward tiers on the main page</Link>{" "}
-              first.
+              Or browse the{" "}
+              <Link href="/kickstarter">full Kickstarter draft</Link>{" "}
+              and reward tiers first.
             </span>
           </div>
         </div>
@@ -674,16 +624,6 @@ export default function UpdateLetterPage() {
         </div>
 
       </div>
-
-      {/* Fixed survey FAB */}
-      <Link href="/survey" className="update-survey-fab">
-        Help! Another survey! ;)
-      </Link>
-
-      {/* Fixed Discord FAB */}
-      <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer" className="update-discord-fab">
-        💬 Join the Discord Discussion!
-      </a>
     </>
   );
 }
