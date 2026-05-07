@@ -49,6 +49,38 @@ export default function UpdateLetterPage() {
           font-family: Georgia, serif;
         }
 
+        /* ── Sticky update nav ── */
+        .update-nav {
+          position: sticky;
+          top: 64px;
+          z-index: 40;
+          background: rgba(242,240,236,0.95);
+          backdrop-filter: blur(8px);
+          border-bottom: 1px solid #e0ddd8;
+          padding: 10px 16px;
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+        }
+        .update-nav-btn {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 8px 20px;
+          border-radius: 50px;
+          border: 2px solid #1a1a1a;
+          background: transparent;
+          color: #1a1a1a;
+          cursor: pointer;
+          transition: background 0.15s, color 0.15s;
+          white-space: nowrap;
+        }
+        .update-nav-btn:hover,
+        .update-nav-btn--active {
+          background: #1a1a1a;
+          color: #f7f3ea;
+        }
+
         /* ── Update section wrapper ── */
         .update-section {
           padding: 32px 16px 48px;
@@ -670,6 +702,22 @@ export default function UpdateLetterPage() {
       `}</style>
 
       <Nav />
+
+      {/* Sticky update nav */}
+      <div className="update-nav">
+        <button
+          className={`update-nav-btn${activeUpdate === 1 ? " update-nav-btn--active" : ""}`}
+          onClick={() => scrollTo("update-1")}
+        >
+          Update 1 — Reward Tiers
+        </button>
+        <button
+          className={`update-nav-btn${activeUpdate === 2 ? " update-nav-btn--active" : ""}`}
+          onClick={() => scrollTo("update-2")}
+        >
+          Update 2 — The Campaigns
+        </button>
+      </div>
 
       <div className="update-page">
 
