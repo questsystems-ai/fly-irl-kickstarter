@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Nav from "@/components/Nav";
 
 export default function UpdateLetterPage() {
   const [copied, setCopied] = useState(false);
@@ -15,161 +16,163 @@ export default function UpdateLetterPage() {
   return (
     <>
       <style>{`
-        .letter-wrap {
-          background: #f9f8f6;
+        .update-wrap {
+          background: #f2f0ec;
           min-height: 100vh;
-          padding-bottom: 80px;
+          padding: 80px 16px 48px;
+          font-family: Georgia, serif;
+        }
+
+        .update-card {
+          max-width: 600px;
+          margin: 0 auto;
+          background: #ffffff;
+          border-radius: 8px;
+          overflow: hidden;
+          box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
 
         /* ── Top bar ── */
-        .letter-topbar {
+        .u-topbar {
           background: #1a1a1a;
-          padding: 14px 24px;
+          padding: 14px 28px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 12px;
         }
-        .letter-logo {
-          font-family: 'Montserrat', sans-serif;
+        .u-logo {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
           font-weight: 800;
           font-size: 18px;
           color: #fff;
           letter-spacing: -0.5px;
         }
-        .letter-logo span { color: #f7f3ea; }
-        .letter-topbar-label {
-          font-size: 12px;
-          font-weight: 500;
-          color: rgba(255,255,255,0.45);
+        .u-logo span { color: #f7f3ea; }
+        .u-topbar-label {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 11px;
+          font-weight: 600;
+          color: rgba(255,255,255,0.4);
           text-transform: uppercase;
           letter-spacing: 1.5px;
-          white-space: nowrap;
         }
 
-        /* ── Hero strip ── */
-        .letter-hero {
+        /* ── Hero ── */
+        .u-hero {
           background: #1a1a1a;
-          padding: 56px 24px 48px;
+          padding: 52px 28px 44px;
           text-align: center;
           border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .letter-eyebrow {
-          display: inline-block;
+        .u-eyebrow {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
           font-size: 11px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 2px;
-          color: rgba(247,243,234,0.5);
-          margin-bottom: 16px;
+          color: rgba(247,243,234,0.45);
+          margin-bottom: 18px;
         }
-        .letter-hero h1 {
-          font-family: 'Montserrat', sans-serif;
-          font-size: clamp(28px, 5vw, 42px);
+        .u-hero h1 {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: clamp(26px, 5vw, 34px);
           font-weight: 800;
           color: #fff;
           letter-spacing: -0.5px;
-          margin-bottom: 14px;
+          margin: 0 0 14px;
           line-height: 1.15;
         }
-        .letter-hero h1 em {
-          font-style: normal;
+        .u-hero h1 span {
           color: #f7f3ea;
-          opacity: 0.75;
+          opacity: 0.72;
         }
-        .letter-hero-meta {
+        .u-hero-meta {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
           font-size: 13px;
-          color: rgba(255,255,255,0.35);
-          margin-top: 12px;
-        }
-        .letter-hero-meta span {
-          color: rgba(255,255,255,0.2);
-          margin: 0 8px;
+          color: rgba(255,255,255,0.32);
         }
 
         /* ── Stats strip ── */
-        .letter-stats {
-          background: #fff;
-          border-bottom: 1px solid #e8e5e0;
+        .u-stats {
           display: flex;
-          justify-content: center;
+          border-bottom: 1px solid #e8e5e0;
         }
-        .letter-stat {
+        .u-stat {
           flex: 1;
-          max-width: 220px;
-          padding: 26px 16px;
           text-align: center;
+          padding: 24px 12px;
           border-right: 1px solid #e8e5e0;
         }
-        .letter-stat:last-child { border-right: none; }
-        .letter-stat-val {
-          font-family: 'Montserrat', sans-serif;
-          font-size: clamp(26px, 4vw, 36px);
+        .u-stat:last-child { border-right: none; }
+        .u-stat-val {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 30px;
           font-weight: 800;
           color: #1a1a1a;
           line-height: 1;
           margin-bottom: 5px;
         }
-        .letter-stat-label {
-          font-size: 11px;
+        .u-stat-label {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 10px;
           color: #999;
-          line-height: 1.4;
           text-transform: uppercase;
           letter-spacing: 0.5px;
+          line-height: 1.4;
         }
 
-        /* ── Body ── */
-        .letter-body {
-          max-width: 660px;
-          margin: 0 auto;
-          padding: 52px 24px 16px;
+        /* ── Body text ── */
+        .u-body {
+          padding: 44px 36px 8px;
         }
-        .letter-salutation {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 17px;
+        .u-salutation {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 16px;
           font-weight: 700;
           color: #1a1a1a;
-          margin-bottom: 24px;
+          margin: 0 0 22px;
         }
-        .letter-body p {
-          font-size: 17px;
+        .u-body p {
+          font-family: Georgia, serif;
+          font-size: 16px;
           line-height: 1.78;
           color: #2f2f2f;
-          margin-bottom: 22px;
+          margin: 0 0 20px;
         }
-        .letter-body strong { color: #1a1a1a; font-weight: 600; }
-        .letter-body em { color: #5a5a5a; font-style: italic; }
+        .u-body p strong { color: #1a1a1a; font-weight: 600; }
 
-        /* ── Pull quote ── */
-        .letter-callout {
+        /* Pull quote */
+        .u-pullquote {
           border-left: 4px solid #1a1a1a;
-          background: #fff;
-          padding: 20px 24px;
-          margin: 32px 0;
+          background: #f9f8f6;
+          padding: 18px 22px;
           border-radius: 0 8px 8px 0;
+          margin: 28px 0;
         }
-        .letter-callout p {
-          font-size: 18px !important;
+        .u-pullquote p {
+          font-family: Georgia, serif;
+          font-size: 17px;
           font-weight: 600;
-          color: #1a1a1a !important;
+          color: #1a1a1a;
           font-style: italic;
           margin: 0 !important;
-          line-height: 1.55 !important;
+          line-height: 1.55;
         }
 
-        /* ── Divider ── */
-        .letter-divider {
+        /* Divider */
+        .u-divider {
           display: flex;
           align-items: center;
-          gap: 16px;
-          margin: 36px 0;
+          gap: 12px;
+          margin: 28px 0;
         }
-        .letter-divider hr {
+        .u-divider hr {
           flex: 1;
           border: none;
           border-top: 1px solid #e0ddd8;
+          margin: 0;
         }
-        .letter-divider-dot {
+        .u-divider-dot {
           width: 6px;
           height: 6px;
           border-radius: 50%;
@@ -177,453 +180,590 @@ export default function UpdateLetterPage() {
           flex-shrink: 0;
         }
 
-        /* ── What I need dark card ── */
-        .letter-needs {
-          background: #1a1a1a;
-          border-radius: 12px;
-          padding: 32px 28px;
-          margin: 36px 0;
+        /* ── Reward tiers ── */
+        .u-tiers {
+          padding: 0 36px 8px;
         }
-        .letter-needs h3 {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 17px;
-          font-weight: 800;
-          color: #f7f3ea;
-          margin-bottom: 24px;
-          line-height: 1.3;
-        }
-        .letter-need-item {
-          display: flex;
-          gap: 18px;
-          margin-bottom: 22px;
-          align-items: flex-start;
-        }
-        .letter-need-item:last-child { margin-bottom: 0; }
-        .letter-need-num {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 22px;
-          font-weight: 800;
-          color: rgba(247,243,234,0.4);
-          line-height: 1.1;
-          flex-shrink: 0;
-          width: 24px;
-        }
-        .letter-need-text {
-          font-size: 15px;
-          color: rgba(255,255,255,0.7);
-          line-height: 1.65;
-        }
-        .letter-need-text strong {
-          color: #fff;
-          font-weight: 600;
-          display: block;
-          font-size: 15px;
-          margin-bottom: 4px;
-        }
-
-        /* ── STOL aside ── */
-        .letter-aside {
-          background: #f0ede8;
-          border: 1px solid #e0ddd8;
-          border-radius: 10px;
-          padding: 24px;
-          margin: 36px 0;
-        }
-        .letter-aside-label {
-          font-size: 10px;
+        .u-tiers-label {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 13px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 1.5px;
           color: #aaa;
-          margin-bottom: 10px;
+          margin: 0 0 16px;
         }
-        .letter-aside h4 {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 16px;
-          font-weight: 800;
-          color: #1a1a1a;
-          margin-bottom: 10px;
-        }
-        .letter-aside p {
-          font-size: 15px !important;
-          color: #5a5a5a !important;
-          margin-bottom: 12px !important;
-          line-height: 1.65 !important;
-        }
-        .letter-aside a {
-          font-size: 14px;
-          font-weight: 600;
-          color: #1a1a1a;
-          text-decoration: underline;
-          text-underline-offset: 3px;
-        }
-        .letter-aside--dark {
-          background: #1a1a1a;
-          border-color: #1a1a1a;
-        }
-        .letter-aside--dark .letter-aside-label { color: rgba(247,243,234,0.35); }
-        .letter-aside--dark h4 { color: #f7f3ea; }
-        .letter-aside--dark p { color: rgba(255,255,255,0.65) !important; }
-        .letter-aside--dark strong { color: #fff; }
-
-        /* ── Sign-off ── */
-        .letter-signoff {
-          margin: 40px 0 16px;
-        }
-        .letter-signoff p { margin-bottom: 6px !important; }
-        .letter-signoff .sig-name {
-          font-family: 'Montserrat', sans-serif;
-          font-size: 20px;
-          font-weight: 800;
-          color: #1a1a1a;
-          margin-top: 16px !important;
-          margin-bottom: 4px !important;
-        }
-        .letter-signoff .sig-title {
-          font-size: 14px !important;
-          color: #999 !important;
-          margin-bottom: 8px !important;
-        }
-        .letter-email-btn {
-          font-size: 14px;
-          color: #1a1a1a;
-          text-decoration: underline;
-          text-underline-offset: 3px;
-          cursor: pointer;
-          background: none;
-          border: none;
-          font-family: inherit;
-          padding: 0;
-          transition: color 0.15s;
-        }
-        .letter-email-btn:hover { color: #555; }
-
-        /* ── Survey CTA block ── */
-        .letter-survey-cta {
+        .u-tier {
+          border: 1px solid #e0ddd8;
+          border-radius: 10px;
           background: #fff;
-          border: 2px solid #1a1a1a;
-          border-radius: 12px;
-          padding: 36px 28px;
-          margin: 44px 0;
-          text-align: center;
+          padding: 18px 20px;
+          margin-bottom: 10px;
         }
-        .letter-survey-cta h3 {
-          font-family: 'Montserrat', sans-serif;
+        .u-tier--featured {
+          border: 2px solid #1a1a1a;
+        }
+        .u-tier-badge {
+          display: inline-block;
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 10px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          color: #fff;
+          background: #1a1a1a;
+          padding: 3px 8px;
+          border-radius: 3px;
+          margin-bottom: 10px;
+        }
+        .u-tier-header {
+          margin-bottom: 6px;
+        }
+        .u-tier-price {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
           font-size: 22px;
           font-weight: 800;
           color: #1a1a1a;
-          margin-bottom: 10px;
         }
-        .letter-survey-cta p {
+        .u-tier-name {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
           font-size: 15px;
-          color: #666;
-          margin-bottom: 26px;
+          font-weight: 700;
+          color: #1a1a1a;
+          margin-left: 10px;
+        }
+        .u-tier-desc {
+          font-family: Georgia, serif;
+          font-size: 14px;
+          color: #555;
+          line-height: 1.65;
+          margin: 8px 0 10px;
+        }
+        .u-tier-perks {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 12px;
+          color: #888;
+          margin: 0;
+        }
+
+        /* ── Now then ── */
+        .u-now-then {
+          padding: 28px 36px 4px;
+          text-align: center;
+        }
+        .u-now-then p {
+          font-family: Georgia, serif;
+          font-size: 28px;
+          font-style: italic;
+          color: #1a1a1a;
+          margin: 0;
+          line-height: 1.2;
+        }
+
+        /* ── Dark cards ── */
+        .u-section {
+          padding: 16px 36px;
+        }
+        .u-dark-card {
+          background: #1a1a1a;
+          border-radius: 12px;
+          padding: 30px 26px;
+        }
+        .u-dark-card h3 {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 16px;
+          font-weight: 800;
+          color: #f7f3ea;
+          margin: 0 0 22px;
+          line-height: 1.3;
+        }
+
+        /* What I need — item 1 (highlighted) */
+        .u-need-highlight {
+          background: rgba(247,243,234,0.07);
+          border-radius: 8px;
+          border-left: 3px solid #f7f3ea;
+          padding: 14px 16px;
+          margin-bottom: 18px;
+        }
+        .u-need-highlight-title {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 16px;
+          font-weight: 800;
+          color: #f7f3ea;
+          margin: 0 0 6px;
+          letter-spacing: -0.2px;
+        }
+        .u-need-highlight-title a {
+          color: #f7f3ea;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+        }
+        .u-need-highlight p {
+          font-family: Georgia, serif;
+          font-size: 14px;
+          color: rgba(255,255,255,0.72);
+          margin: 0;
           line-height: 1.65;
         }
-        .letter-cta-btn {
-          display: inline-block;
-          background: #1a1a1a;
-          color: #f7f3ea;
-          font-family: 'Montserrat', sans-serif;
+        .u-need-highlight p strong { color: #fff; }
+
+        /* What I need — items 2 & 3 */
+        .u-need-item {
+          display: flex;
+          gap: 14px;
+          margin-bottom: 18px;
+        }
+        .u-need-num {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 800;
+          color: rgba(247,243,234,0.35);
+          line-height: 1.2;
+          flex-shrink: 0;
+          width: 20px;
+        }
+        .u-need-item-title {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 14px;
           font-weight: 700;
-          font-size: 15px;
-          padding: 14px 32px;
-          border-radius: 8px;
-          text-decoration: none;
-          letter-spacing: 0.3px;
-          transition: opacity 0.15s ease, transform 0.15s ease;
+          color: #fff;
+          margin: 0 0 4px;
         }
-        .letter-cta-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-        .letter-cta-secondary {
-          display: block;
-          margin-top: 16px;
+        .u-need-item-text {
+          font-family: Georgia, serif;
+          font-size: 14px;
+          color: rgba(255,255,255,0.65);
+          margin: 0;
+          line-height: 1.65;
+        }
+
+        /* Discord bonus */
+        .u-bonus {
+          border-top: 1px solid rgba(255,255,255,0.1);
+          padding-top: 16px;
+          margin-top: 4px;
+        }
+        .u-bonus-label {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
           font-size: 13px;
-          color: #bbb;
+          font-weight: 700;
+          color: rgba(247,243,234,0.5);
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          margin: 0 0 8px;
         }
-        .letter-cta-secondary a {
-          color: #999;
+        .u-bonus p {
+          font-family: Georgia, serif;
+          font-size: 14px;
+          color: rgba(255,255,255,0.72);
+          margin: 0;
+          line-height: 1.65;
+        }
+        .u-bonus a {
+          color: #f7f3ea;
+          font-weight: 700;
           text-decoration: underline;
           text-underline-offset: 3px;
         }
 
-        /* ── Page footer ── */
-        .letter-footer {
-          max-width: 660px;
-          margin: 0 auto;
-          padding: 0 24px 48px;
+        /* Movement card */
+        .u-dark-card p {
+          font-family: Georgia, serif;
+          font-size: 14px;
+          color: rgba(255,255,255,0.72);
+          line-height: 1.72;
+          margin: 0 0 14px;
+        }
+        .u-dark-card p:last-child { margin-bottom: 0; }
+        .u-dark-card a {
+          color: #f7f3ea;
+          font-weight: 600;
+        }
+
+        /* ── Survey CTA ── */
+        .u-survey-cta {
+          padding: 24px 36px 16px;
+        }
+        .u-survey-inner {
+          background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+          border-radius: 14px;
           text-align: center;
+          overflow: hidden;
+          padding: 10px 28px 28px;
+        }
+        .u-survey-eyebrow {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          color: rgba(247,243,234,0.45);
+          margin: 0 0 8px;
+        }
+        .u-survey-title {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 800;
+          color: #fff;
+          margin: 0 0 8px;
+          letter-spacing: -0.3px;
+        }
+        .u-survey-arrows {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 22px;
+          color: rgba(247,243,234,0.25);
+          margin: 0 0 14px;
+          letter-spacing: 6px;
+        }
+        .u-survey-btn {
+          display: inline-block;
+          background: #e8380d;
+          color: #ffffff;
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-weight: 800;
+          font-size: 18px;
+          padding: 18px 48px;
+          border-radius: 10px;
+          text-decoration: none;
+          letter-spacing: 0.3px;
+          box-shadow: 0 4px 20px rgba(232,56,13,0.45);
+          transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .u-survey-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 28px rgba(232,56,13,0.55);
+        }
+        .u-survey-fine {
+          font-family: Georgia, serif;
           font-size: 13px;
+          font-style: italic;
+          color: rgba(247,243,234,0.45);
+          margin: 16px 0 0;
+        }
+
+        /* ── Sign-off ── */
+        .u-signoff {
+          padding: 8px 36px 32px;
+        }
+        .u-signoff p {
+          font-family: Georgia, serif;
+          font-size: 16px;
+          line-height: 1.78;
+          color: #2f2f2f;
+          margin: 0 0 6px;
+        }
+        .u-sig-name {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 20px;
+          font-weight: 800;
+          color: #1a1a1a;
+          margin: 0 0 4px;
+        }
+        .u-sig-title {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 13px;
+          color: #999;
+          margin: 0 0 8px;
+        }
+        .u-email-btn {
+          background: none;
+          border: none;
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 13px;
+          color: #666;
+          text-decoration: underline;
+          cursor: pointer;
+          padding: 0;
+        }
+
+        /* ── Footer ── */
+        .u-footer {
+          background: #f2f0ec;
+          padding: 24px 36px;
+          text-align: center;
+          border-top: 1px solid #e8e5e0;
+        }
+        .u-footer p {
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 12px;
           color: #bbb;
           line-height: 1.8;
+          margin: 0;
         }
-        .letter-footer a { color: #999; text-decoration: underline; text-underline-offset: 3px; }
+        .u-footer a { color: #999; text-decoration: underline; }
+
+        /* ── FABs ── */
+        .update-survey-fab {
+          position: fixed;
+          bottom: 28px;
+          left: 24px;
+          background: #e8380d;
+          color: #fff;
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 12px 18px;
+          border-radius: 50px;
+          text-decoration: none;
+          box-shadow: 0 4px 16px rgba(232,56,13,0.45);
+          z-index: 50;
+          animation: fabPulse 3.5s ease-in-out infinite;
+        }
+        .update-discord-fab {
+          position: fixed;
+          bottom: 28px;
+          right: 24px;
+          background: #5865F2;
+          color: #fff;
+          font-family: 'Helvetica Neue', Arial, sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 12px 18px;
+          border-radius: 50px;
+          text-decoration: none;
+          box-shadow: 0 4px 16px rgba(88,101,242,0.45);
+          z-index: 50;
+        }
+        @keyframes fabPulse {
+          0%, 100% { transform: translateY(0); box-shadow: 0 4px 16px rgba(232,56,13,0.45); }
+          50% { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(232,56,13,0.6); }
+        }
 
         /* ── Mobile ── */
         @media (max-width: 500px) {
-          .letter-stats { flex-direction: column; }
-          .letter-stat {
-            border-right: none;
-            border-bottom: 1px solid #e8e5e0;
-            max-width: 100%;
-          }
-          .letter-stat:last-child { border-bottom: none; }
-          .letter-body { padding: 36px 20px 16px; }
-          .letter-needs { padding: 24px 20px; }
-          .letter-survey-cta { padding: 28px 20px; }
+          .u-body, .u-tiers, .u-section, .u-survey-cta, .u-signoff, .u-footer { padding-left: 20px; padding-right: 20px; }
+          .u-stats { flex-direction: column; }
+          .u-stat { border-right: none; border-bottom: 1px solid #e8e5e0; }
+          .u-stat:last-child { border-bottom: none; }
         }
       `}</style>
 
-      <div className="letter-wrap">
+      <Nav />
 
-        {/* Top bar */}
-        <div className="letter-topbar">
-          <div className="letter-logo">Fly<span>IRL</span></div>
-          <div className="letter-topbar-label">Founder Update</div>
-        </div>
+      <div className="update-wrap">
+        <div className="update-card">
 
-        {/* Hero */}
-        <div className="letter-hero">
-          <div className="letter-eyebrow">Phase 1 Complete · April 2026</div>
-          <h1>The results are in.<br /><em>And they&rsquo;re good.</em></h1>
-          <div className="letter-hero-meta">
-            From Aaron, Founder
-            <span>·</span>
-            2 min read
-          </div>
-        </div>
-
-        {/* Stats strip */}
-        <div className="letter-stats">
-          <div className="letter-stat">
-            <div className="letter-stat-val">1,000+</div>
-            <div className="letter-stat-label">Signups<br />Phase 1</div>
-          </div>
-          <div className="letter-stat">
-            <div className="letter-stat-val">&lt;$2</div>
-            <div className="letter-stat-label">Cost per<br />lead</div>
-          </div>
-          <div className="letter-stat">
-            <div className="letter-stat-val">&lt;1 mo</div>
-            <div className="letter-stat-label">To hit<br />target</div>
-          </div>
-        </div>
-
-        {/* Body */}
-        <div className="letter-body">
-          <div className="letter-salutation">Hi — Aaron here, founder of Fly-IRL.</div>
-
-          <p>
-            I want to personally thank you{" "}
-            <em>(…in a mass form email…? ;)</em>{" "}
-            for signing up. You&rsquo;re part of why Phase 1 of the pre-launch campaign
-            worked as well as it did.
-          </p>
-
-          <p>
-            From a pure marketing metrics standpoint:{" "}
-            <strong>it was a ringing success.</strong> Over 1,000 signups in under
-            a month, at under $2 per lead. That&rsquo;s about as efficient as digital
-            marketing gets.
-          </p>
-
-          <div className="letter-callout">
-            <p>
-              &ldquo;It gave me something worth (almost ;) more than gold right now: some form of market validation.&rdquo;
-            </p>
+          {/* Top bar */}
+          <div className="u-topbar">
+            <div className="u-logo">Fly<span>IRL</span></div>
+            <div className="u-topbar-label">Founder Update</div>
           </div>
 
-          <p>
-            I couldn&rsquo;t talk to VCs without it. Now I have a foot in the door — the
-            bare minimum needed to start building relationships, showing I can hit
-            milestones, and eventually unlock real startup funding. I was even able to
-            convert that validation into a small investment — enough to cut back on one
-            of my part-time jobs and put more focus into this.
-          </p>
-
-          <div className="letter-divider">
-            <hr /><div className="letter-divider-dot" /><hr />
+          {/* Hero */}
+          <div className="u-hero">
+            <div className="u-eyebrow">Phase 1 Complete &nbsp;·&nbsp; April 2026</div>
+            <h1>The results are in.<br /><span>And they&rsquo;re good.</span></h1>
+            <div className="u-hero-meta">From Aaron, Founder &nbsp;·&nbsp; 2 min read</div>
           </div>
 
-          <p>
-            <strong>Here&rsquo;s the honest picture though.</strong> This is not a conventional
-            Kickstarter. The product — flights at a real SkyPark — won&rsquo;t be available
-            for 5–10 years. That&rsquo;s roughly the same timeline as when eVTOL
-            companies like Archer and Joby expect to get FAA approval for
-            commercially un-piloted operations.
-          </p>
-
-          <p>
-            Conventional wisdom says you can&rsquo;t pre-sell $100 flight passes when the
-            planes won&rsquo;t fly for a decade. So the real question isn&rsquo;t{" "}
-            <em>can we raise money.</em> It&rsquo;s:{" "}
-            <strong>what would people actually pay for?</strong>
-          </p>
-
-          <p>
-            That&rsquo;s where you come in. I&rsquo;ve put together a set of proposed reward tiers —
-            some accessible, some a Hail Mary — and I need to know which ones resonate
-            before I commit to the full campaign. If you suggest a tier that makes it
-            in, you get it free. Or at a serious discount.
-          </p>
-
-          <div className="letter-divider">
-            <hr /><div className="letter-divider-dot" /><hr />
-          </div>
-
-          <div className="letter-needs">
-            <h3>What I need to pull the trigger on the full campaign</h3>
-
-            <div className="letter-need-item">
-              <div className="letter-need-num">1</div>
-              <div className="letter-need-text">
-                <strong>Survey responses</strong>
-                Which tiers would you actually pay for? What&rsquo;s your realistic price
-                ceiling for a long-horizon investment like this? Your answers shape
-                the entire campaign.
-              </div>
+          {/* Stats strip */}
+          <div className="u-stats">
+            <div className="u-stat">
+              <div className="u-stat-val">1,000+</div>
+              <div className="u-stat-label">Signups<br />Phase 1</div>
             </div>
-
-            <div className="letter-need-item">
-              <div className="letter-need-num">2</div>
-              <div className="letter-need-text">
-                <strong>Day-1 backers</strong>
-                The first 24 hours determine a Kickstarter&rsquo;s algorithmic rank — and
-                whether strangers ever discover it. Knowing you&rsquo;ll back on launch day
-                is as valuable as the pledge itself.
-              </div>
+            <div className="u-stat">
+              <div className="u-stat-val">&lt;$2</div>
+              <div className="u-stat-label">Cost per<br />lead</div>
             </div>
-
-            <div className="letter-need-item">
-              <div className="letter-need-num">3</div>
-              <div className="letter-need-text">
-                <strong>Referrals</strong>
-                Send it to anyone who&rsquo;s ever said &ldquo;I&rsquo;d love to fly a plane someday.&rdquo;
-                In particular: women. Only 2% of certificated pilots are female —
-                but anecdotally, nearly every woman I&rsquo;ve talked to about this idea
-                lights up immediately. There&rsquo;s a huge market there waiting to be unlocked.
-              </div>
+            <div className="u-stat">
+              <div className="u-stat-val">&lt;1 mo</div>
+              <div className="u-stat-label">To hit<br />target</div>
             </div>
           </div>
 
-          <p>
-            If crowdfunding succeeds, it gives me runway before I have to raise VC money.
-            That means more leverage to push for my priorities — accessibility and
-            affordability — versus theirs: maximum profitability through exclusivity.
-            The longer we can self-finance, the more this stays about getting most
-            people in the air, not extracting the most money from them.
-          </p>
+          {/* Body */}
+          <div className="u-body">
+            <p className="u-salutation">Hi — Aaron here, founder of Fly-IRL.</p>
 
-          <div className="letter-divider">
-            <hr /><div className="letter-divider-dot" /><hr />
-          </div>
+            <p>
+              I want to personally thank you <em>(...in a mass form email...? ;)</em> for signing up. You&rsquo;re part of why Phase 1 worked as well as it did.
+            </p>
 
-          <div className="letter-aside">
-            <div className="letter-aside-label">Bonus idea — deliverable within a year</div>
-            <h4>The STOL Cub Experience</h4>
             <p>
-              True backcountry bush plane flying — the safest, most adventurous aircraft
-              platform there is. I know the owner of one of the premier STOL training
-              schools in the US. A 1-hour thrill ride into gorgeous wilderness near Las Vegas,
-              as a Kickstarter tier, is absolutely doable within a year. Starting around $250.
+              From a pure marketing metrics standpoint: <strong>it was a ringing success.</strong> Over 1,000 signups in under a month, at under $2 per lead. That&rsquo;s about as efficient as digital marketing gets.
             </p>
-            <p>
-              It would also give Fly-IRL real manned flight operations on the books —
-              something the FAA smiles on for anyone pushing into the autonomy space.
-            </p>
-            <a href="https://www.thecubexperience.com/kickstarter" target="_blank" rel="noreferrer">
-              See The Cub Experience →
-            </a>
-          </div>
 
-          <div className="letter-aside letter-aside--dark">
-            <div className="letter-aside-label">Wildcard #1</div>
-            <h4>There&rsquo;s no purpose-built plane for this. Yet.</h4>
+            <div className="u-pullquote">
+              <p>&ldquo;It gave me something worth (almost ;) more than gold right now: some form of market validation.&rdquo;</p>
+            </div>
+
             <p>
-              There is exactly one aircraft in the world designed for this kind of
-              activity. It&rsquo;s made in China, and the company doesn&rsquo;t appear to be
-              pursuing it seriously.{" "}
-              <em>(Look up the EHang VT30 if you&rsquo;re curious.)</em>
+              I couldn&rsquo;t talk to VCs without it. Now I have a foot in the door — enough to start building relationships and showing I can hit milestones. I even converted that into a small investment: enough to cut back on one of my part-time jobs and put more focus into this.
             </p>
+
+            <div className="u-divider">
+              <hr /><div className="u-divider-dot" /><hr />
+            </div>
+
             <p>
-              Which means: we&rsquo;re going to have to build it here. And honestly —
-              that&rsquo;s not a problem, it&rsquo;s an opportunity. This is not an inherently
-              expensive aircraft. Sub-$1M, designed and built American: rugged,
-              reliable, high-performance, with overengineered safety. I have the
-              aerospace connections to make it happen. A similar $500K Kickstarter
-              goal could get that rolling.
+              <strong>Here&rsquo;s the honest picture though.</strong> This is not a conventional Kickstarter. The product — flights at a real SkyPark — won&rsquo;t be available for 5–10 years. Conventional wisdom says you can&rsquo;t pre-sell $100 flight passes when the planes won&rsquo;t fly for a decade. So the real question isn&rsquo;t <em>can we raise money.</em> It&rsquo;s: <strong>what would people actually pay for?</strong>
             </p>
+
             <p>
-              The distinction worth making: FlyIRL is a <strong>business</strong>.
-              A new plane is <strong>bread and butter</strong>. Designing and building
-              aircraft to open up general aviation was born in this country — we know
-              how to do that. And of course, other nations with proven aero industries
-              and general aviation cultures are part of this story too. The point is:
-              one of these is a vision, the other is an engineering project.
+              That&rsquo;s where you come in. I&rsquo;ve put together a set of proposed reward tiers and I need to know which ones resonate before I commit to the full campaign. <strong>If you suggest a tier that makes it in, you get it free — or at a serious discount.</strong>
             </p>
           </div>
 
-          <div className="letter-aside">
-            <div className="letter-aside-label">Wildcard #2 — smallest ask, biggest leverage</div>
-            <h4>An X-Prize for university aero teams</h4>
-            <p>
-              Here&rsquo;s an interesting crowdfunding option with a much smaller target:
-              ~$50,000 to fund a Moonshot challenge for aerospace engineering departments.
-              Student and professor teams compete to do the design work we&rsquo;d otherwise
-              fund internally at $500K.
-            </p>
-            <p>
-              Yes, we&rsquo;d share IP. But again — FlyIRL is a business, not a product.
-              Whatever gets it off the ground.
-            </p>
+          {/* Reward tiers */}
+          <div className="u-tiers">
+            <p className="u-tiers-label">Proposed Reward Tiers</p>
+
+            <div className="u-tier">
+              <div className="u-tier-header">
+                <span className="u-tier-price">$25</span>
+                <span className="u-tier-name">Dreamer</span>
+              </div>
+              <p className="u-tier-desc">You believe flight should be for everyone. Get your name on the Founders Wall and exclusive updates from inside the build.</p>
+              <p className="u-tier-perks">✓ Founders Wall listing &nbsp;&nbsp;✓ Private build updates &nbsp;&nbsp;✓ Digital backer badge</p>
+            </div>
+
+            <div className="u-tier">
+              <div className="u-tier-header">
+                <span className="u-tier-price">$100</span>
+                <span className="u-tier-name">Crew Member</span>
+              </div>
+              <p className="u-tier-desc">Join the design review community. Attend live sessions where we share progress, take feedback, and shape the experience together.</p>
+              <p className="u-tier-perks">✓ Everything in Dreamer &nbsp;&nbsp;✓ Monthly design review access &nbsp;&nbsp;✓ Vote on feature priorities &nbsp;&nbsp;✓ Backer-only Discord</p>
+            </div>
+
+            <div className="u-tier u-tier--featured">
+              <div className="u-tier-badge">Most Popular</div>
+              <div className="u-tier-header">
+                <span className="u-tier-price">$300</span>
+                <span className="u-tier-name">Test Pilot</span>
+              </div>
+              <p className="u-tier-desc">Be first to fly. Get priority access to every demo, simulation test, and eventually — the real thing.</p>
+              <p className="u-tier-perks">✓ Everything in Crew Member &nbsp;&nbsp;✓ Priority demo access &nbsp;&nbsp;✓ Simulation beta testing &nbsp;&nbsp;✓ Launch-day flight reservation</p>
+            </div>
+
+            <div className="u-tier">
+              <div className="u-tier-header">
+                <span className="u-tier-price">$1,000</span>
+                <span className="u-tier-name">Founding Pilot</span>
+              </div>
+              <p className="u-tier-desc">A serious commitment to making this real. Guaranteed flight slot, lifetime priority, and your name on the first aircraft.</p>
+              <p className="u-tier-perks">✓ Everything in Test Pilot &nbsp;&nbsp;✓ Guaranteed first-year flight &nbsp;&nbsp;✓ Lifetime priority booking &nbsp;&nbsp;✓ Quarterly founder calls &nbsp;&nbsp;✓ Name on the first aircraft</p>
+            </div>
+
+            <div className="u-tier">
+              <div className="u-tier-header">
+                <span className="u-tier-price">$10,000</span>
+                <span className="u-tier-name">Ranch Pioneer</span>
+              </div>
+              <p className="u-tier-desc">A deposit toward a personal flight system. When ranch installations begin, Ranch Pioneers are first on the wait list — with $10,000 credited toward the purchase price.</p>
+              <p className="u-tier-perks">✓ Everything in Founding Pilot &nbsp;&nbsp;✓ $10K credited toward system &nbsp;&nbsp;✓ First on ranch installation wait list &nbsp;&nbsp;✓ Private quarterly briefings</p>
+            </div>
+
+            <div className="u-tier u-tier--featured">
+              <div className="u-tier-badge">Limited — 5 Available</div>
+              <div className="u-tier-header">
+                <span className="u-tier-price">$100,000</span>
+                <span className="u-tier-name">Ranch Founder</span>
+              </div>
+              <p className="u-tier-desc">A deposit on one of the first five personal ranch installations. Guaranteed slot in the first production run with $100,000 credited toward the purchase price.</p>
+              <p className="u-tier-perks">✓ Everything in Ranch Pioneer &nbsp;&nbsp;✓ $100K credited toward system &nbsp;&nbsp;✓ Guaranteed slot in first 5 &nbsp;&nbsp;✓ Co-design your installation &nbsp;&nbsp;✓ Monthly direct access to founder</p>
+            </div>
           </div>
 
-          <div className="letter-divider">
-            <hr /><div className="letter-divider-dot" /><hr />
+          {/* Now then... */}
+          <div className="u-now-then">
+            <p>Now Then...</p>
           </div>
 
-          <div className="letter-signoff">
+          {/* What I need */}
+          <div className="u-section">
+            <div className="u-dark-card">
+              <h3>What I need to pull the trigger on the full campaign</h3>
+
+              <div className="u-need-highlight">
+                <p className="u-need-highlight-title">
+                  &#9658;&nbsp; <Link href="/survey">Survey responses — this is the big one</Link>
+                </p>
+                <p>Which tiers would you actually pay for? What&rsquo;s your realistic price ceiling? Your answers shape the entire campaign. <strong>2 minutes, and it actually matters.</strong></p>
+              </div>
+
+              <div className="u-need-item">
+                <div className="u-need-num">2</div>
+                <div>
+                  <p className="u-need-item-title">Day-1 backers</p>
+                  <p className="u-need-item-text">The first 24 hours determine a Kickstarter&rsquo;s algorithmic rank — and whether strangers ever discover it. Knowing you&rsquo;ll back on launch day is as valuable as the pledge itself.</p>
+                </div>
+              </div>
+
+              <div className="u-need-item">
+                <div className="u-need-num">3</div>
+                <div>
+                  <p className="u-need-item-title">Referrals</p>
+                  <p className="u-need-item-text">Send it to anyone who&rsquo;s ever said &ldquo;I&rsquo;d love to fly a plane someday.&rdquo; In particular: women. Only 2% of certificated pilots are female — but nearly every woman I&rsquo;ve talked to about this lights up immediately. Huge market waiting to be unlocked.</p>
+                </div>
+              </div>
+
+              <div className="u-bonus">
+                <p className="u-bonus-label">Added Bonus</p>
+                <p>
+                  A robust discussion on Discord! Come argue about aircraft design, ask anything, or just lurk. &nbsp;<a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer">Join the Discord &#8599;</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Movement */}
+          <div className="u-section" style={{paddingBottom: "8px"}}>
+            <div className="u-dark-card">
+              <h3>FlyIRL is a movement — not just a startup</h3>
+              <p>
+                There are plenty of people who want to fly but can&rsquo;t. This is a human dream — probably as old as humans. Spread the word. If you know anyone who&rsquo;s ever said &ldquo;I&rsquo;ve always wanted to fly&rdquo; — send them to <a href="https://fly-irl.com" target="_blank" rel="noreferrer">fly-irl.com</a>. Every person in that list is another vote that this matters.
+              </p>
+              <p>
+                I&rsquo;ve also created a Discord. Come argue with me about aircraft design, ask anything, or just lurk. <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer">Join the discussion &rarr;</a>
+              </p>
+            </div>
+          </div>
+
+          {/* Survey CTA */}
+          <div className="u-survey-cta">
+            <div className="u-survey-inner">
+              <p className="u-survey-eyebrow">2 minutes &nbsp;·&nbsp; Shapes the entire campaign</p>
+              <p className="u-survey-title">Which reward tiers would you actually back?</p>
+              <p className="u-survey-arrows">&#9660; &#9660; &#9660;</p>
+              <Link href="/survey" className="u-survey-btn">
+                &#9654;&nbsp;&nbsp;Take the Survey&nbsp;&nbsp;&#9654;
+              </Link>
+              <p className="u-survey-fine">Suggest a tier that makes it in &mdash; you get it free.</p>
+            </div>
+          </div>
+
+          {/* Sign-off */}
+          <div className="u-signoff">
             <p>That&rsquo;s it for now.</p>
-            <p>
-              You&rsquo;ve already played a real part in moving this dream forward.
-              A million thank-yous.
-            </p>
-            <p className="sig-name">— Aaron</p>
-            <p className="sig-title">Founder, FlyIRL / SkyPark</p>
-            <button className="letter-email-btn" onClick={copyEmail}>
+            <p>You signed up because you believe flying should be for everyone. So do I. Let&rsquo;s figure out which path gets us there first.</p>
+            <p className="u-sig-name">— Aaron</p>
+            <p className="u-sig-title">Founder, FlyIRL / SkyPark</p>
+            <button className="u-email-btn" onClick={copyEmail}>
               {copied ? "✓ Copied!" : "aaron@fly-irl.com"}
             </button>
           </div>
 
-          {/* Survey CTA */}
-          <div className="letter-survey-cta">
-            <h3>Take the survey</h3>
+          {/* Footer */}
+          <div className="u-footer">
             <p>
-              2 minutes. Shapes the entire campaign.<br />
-              Suggest a tier that makes it in and you get it free.
+              You&rsquo;re getting this because you signed up at fly-irl.com.<br />
+              Questions? <a href="mailto:hello@fly-irl.com">hello@fly-irl.com</a>
+              &nbsp;·&nbsp;
+              <a href="#">Unsubscribe</a>
             </p>
-            <Link href="/survey" className="letter-cta-btn">
-              Fill Out the Survey →
-            </Link>
-            <span className="letter-cta-secondary">
-              Or browse the{" "}
-              <Link href="/kickstarter">full Kickstarter draft</Link>{" "}
-              and reward tiers first.
-            </span>
           </div>
-        </div>
 
-        {/* Footer */}
-        <div className="letter-footer">
-          <p>
-            You&rsquo;re getting this because you signed up at fly-irl.com.
-            <br />
-            Questions? <a href="mailto:hello@fly-irl.com">hello@fly-irl.com</a>
-            &nbsp;·&nbsp;
-            <a href="#">Unsubscribe</a>
-          </p>
         </div>
-
       </div>
+
+      {/* FABs */}
+      <Link href="/survey" className="update-survey-fab">Help! Another survey! ;)</Link>
+      <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer" className="update-discord-fab">
+        💬 Join the Discord Discussion!
+      </a>
     </>
   );
 }
