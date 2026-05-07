@@ -158,10 +158,11 @@ export default function PoliticsBlogPost() {
 
           <div className="post-img-block">
             <img src="/images/sabrina.jpg" alt="Sabrina Carpenter as an all-American sky captain releasing a dove of peace at the Grammys 2026" />
-            <div className="post-img-caption">
-              Peace Through Flight! It can work. Just ask Sabrina Carpenter.
-            </div>
           </div>
+
+          <p>
+            <strong>Peace Through Flight!</strong> It can work. Just ask Sabrina Carpenter.
+          </p>
 
           <div className="post-divider">
             <hr /><div className="post-divider-dot" /><hr />
