@@ -142,17 +142,16 @@ export default function PoliticsBlogPost() {
             on — a place, a concept, a dream surely as old as the first humans gazing at the freedom
             and joy that only birds get to feel. A dream, it turns out, whose time has finally come.
             So let&rsquo;s start by focusing on the positive, something that is symbolic of both American
-            freedom and American greatness.
+            freedom and American greatness: Our role as pioneers and continuing excellence in Aviation.
           </p>
 
           <p>
-            Let&rsquo;s make flight for all a reality. And as we share in the joy and freedom, as the
-            entrepreneurial spirit of exploration is returning to flight in a big way, taking
-            advantage of the freedom to explore and push boundaries, to disrupt, to adapt — that is
-            the center of our power and success as a nation. Maybe we can start talking to each other
-            like fellow Americans again, with different views, cultures and traditions, but all
-            recognizing how lucky we are to be here, and to be free. In China, for example, for
-            obvious reasons{" "}
+            So let&rsquo;s make flight for all a reality. Let&rsquo;s share in the joy and freedom, the freedom
+            to explore and push boundaries, to disrupt old orthodoxies, and to adapt to new ones —
+            that is the center of our power and success as a nation. Give thought and attention to,
+            wherever our personal politics may fall, left, middle, and right, we can all agree on
+            this: how lucky we are to be here, and to be free. In China, for example, for obvious
+            reasons{" "}
             <em>(FREEDOM!)</em>{" "}
             there is no General Aviation community.
           </p>
