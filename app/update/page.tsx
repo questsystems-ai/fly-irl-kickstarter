@@ -1023,17 +1023,6 @@ export default function UpdateLetterPage() {
 
       </div>
 
-      {/* Smart survey FAB — label + link changes based on which update is in view */}
-      <Link
-        href={activeUpdate === 1 ? "/survey" : "/survey/campaigns"}
-        className="update-survey-fab"
-      >
-        {activeUpdate === 1 ? "Help! Another survey! ;)" : "Cast My Vote \u2192"}
-      </Link>
-
-      <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer" className="update-discord-fab">
-        💬 Join the Discord Discussion!
-      </a>
     </>
   );
 }
