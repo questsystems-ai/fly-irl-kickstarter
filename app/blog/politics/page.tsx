@@ -156,6 +156,13 @@ export default function PoliticsBlogPost() {
             there is no General Aviation community.
           </p>
 
+          <div className="post-img-block">
+            <img src="/images/sabrina.jpg" alt="Sabrina Carpenter as an all-American sky captain releasing a dove of peace at the Grammys 2026" />
+            <div className="post-img-caption">
+              Peace Through Flight! It can work. Just ask Sabrina Carpenter.
+            </div>
+          </div>
+
           <div className="post-divider">
             <hr /><div className="post-divider-dot" /><hr />
           </div>
@@ -165,17 +172,6 @@ export default function PoliticsBlogPost() {
             the core principles and values that indisputably make America great — the core of our
             success as a nation. America First, but then the world.
           </p>
-
-          <p>
-            <strong>Peace Through Flight!</strong> It can work. Just ask Sabrina Carpenter.
-          </p>
-
-          <div className="post-img-block">
-            <img src="/images/sabrina.jpg" alt="Sabrina Carpenter as an all-American sky captain releasing a dove of peace at the Grammys 2026" />
-            <div className="post-img-caption">
-              Sabrina Carpenter — all-American sky captain, releasing a dove of peace. Grammys 2026.
-            </div>
-          </div>
 
           <Link href="/blog" className="post-back">
             ← Back to Blog
