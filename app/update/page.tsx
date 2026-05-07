@@ -552,76 +552,106 @@ export default function UpdateLetterPage() {
 
         /* ── Campaign cards (Update 2) ── */
         .u-body-intro { padding: 40px 36px 8px; }
-        .u-campaign-card {
-          margin: 8px 36px 0;
+        .letter-campaigns-intro {
+          margin: 0 36px 28px;
+        }
+        .letter-campaigns-intro h2 {
+          font-family: 'Montserrat', sans-serif;
+          font-size: clamp(22px, 3.5vw, 30px);
+          font-weight: 800;
+          color: #1a1a1a;
+          line-height: 1.2;
+          margin-bottom: 14px;
+        }
+        .letter-campaigns-intro p {
+          font-size: 17px !important;
+          color: #3a3a3a !important;
+          line-height: 1.78 !important;
+          margin-bottom: 0 !important;
+        }
+        .letter-campaign-card {
+          border: 2px solid #1a1a1a;
           border-radius: 12px;
-          overflow: hidden;
-          padding: 24px;
+          padding: 28px;
+          margin: 0 36px 28px;
+          background: #fff;
         }
-        .u-campaign-card--green {
-          border: 2px solid #2e7d4f;
-          background: #f4fbf6;
-        }
-        .u-campaign-card--blue {
-          border: 2px solid #2a7ab5;
+        .letter-campaign-card--blue {
+          border-color: #2a7ab5;
           background: #f5f9fd;
         }
-        .u-campaign-card--purple {
-          border: 2px solid #6b47b8;
+        .letter-campaign-card--purple {
+          border-color: #6b47b8;
           background: #faf7ff;
         }
-        .u-campaign-tag {
-          font-family: 'Helvetica Neue', Arial, sans-serif;
+        .letter-campaign-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
           font-size: 10px;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 1.5px;
-          margin: 0 0 10px;
-        }
-        .u-campaign-tag--green { color: #2e7d4f; }
-        .u-campaign-tag--blue  { color: #2a7ab5; }
-        .u-campaign-tag--purple { color: #6b47b8; }
-        .u-campaign-badge {
-          display: inline-block;
-          font-family: 'Helvetica Neue', Arial, sans-serif;
-          font-size: 12px;
-          font-weight: 700;
-          color: #fff;
-          padding: 4px 10px;
-          border-radius: 4px;
+          color: #888;
           margin-bottom: 12px;
         }
-        .u-campaign-badge--green  { background: #2e7d4f; }
-        .u-campaign-badge--blue   { background: #2a7ab5; }
-        .u-campaign-badge--purple { background: #6b47b8; }
-        .u-campaign-card h3 {
-          font-family: 'Helvetica Neue', Arial, sans-serif;
-          font-size: 17px;
+        .letter-campaign-tag--blue { color: #2a7ab5; }
+        .letter-campaign-tag--purple { color: #6b47b8; }
+        .letter-campaign-card h3 {
+          font-family: 'Montserrat', sans-serif;
+          font-size: 19px;
           font-weight: 800;
           color: #1a1a1a;
-          margin: 0 0 12px;
+          margin-bottom: 12px;
           line-height: 1.3;
         }
-        .u-campaign-card p {
-          font-family: Georgia, serif;
-          font-size: 14px;
-          line-height: 1.72;
-          color: #3a3a3a;
-          margin: 0 0 12px;
+        .letter-campaign-card p {
+          font-size: 15px !important;
+          color: #3a3a3a !important;
+          line-height: 1.72 !important;
+          margin-bottom: 14px !important;
         }
-        .u-campaign-card p:last-of-type { margin-bottom: 0; }
-        .u-campaign-card em { font-style: italic; }
-        .u-campaign-card a {
-          font-family: 'Helvetica Neue', Arial, sans-serif;
+        .letter-campaign-card p:last-of-type { margin-bottom: 0 !important; }
+        .letter-campaign-imgs {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 8px;
+          margin: 18px 0 14px;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+        .letter-campaign-imgs img {
+          width: 100%;
+          height: 150px;
+          object-fit: cover;
+          display: block;
+          border-radius: 6px;
+        }
+        .letter-campaign-card a {
+          display: inline-block;
+          margin-top: 14px;
           font-size: 14px;
           font-weight: 600;
+          color: #1a1a1a;
           text-decoration: underline;
-          display: inline-block;
-          margin-top: 4px;
+          text-underline-offset: 3px;
         }
-        .u-campaign-card--green a { color: #2e7d4f; }
-        .u-campaign-card--blue  a { color: #2a7ab5; }
-        .u-campaign-card--purple a { color: #6b47b8; }
+        .letter-campaign-card--blue a { color: #2a7ab5; }
+        .letter-campaign-card--purple a { color: #6b47b8; }
+        .letter-campaign-goal {
+          display: inline-block;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 13px;
+          font-weight: 700;
+          color: #fff;
+          background: #1a1a1a;
+          padding: 4px 10px;
+          border-radius: 4px;
+          margin-bottom: 14px;
+        }
+        .letter-campaign-goal--blue { background: #2a7ab5; }
+        .letter-campaign-goal--purple { background: #6b47b8; }
+        .letter-campaign-goal--dark { background: #2e7d4f; }
 
         /* ── Smart FAB ── */
         .update-survey-fab {
@@ -916,47 +946,94 @@ export default function UpdateLetterPage() {
               </p>
             </div>
 
-            {/* Campaign 1 — RAM */}
-            <div className="u-campaign-card u-campaign-card--green">
-              <p className="u-campaign-tag u-campaign-tag--green">Campaign Option 1 &nbsp;·&nbsp; $500K goal</p>
-              <div className="u-campaign-badge u-campaign-badge--green">Rural Air Mobility</div>
+            {/* Campaign 1 — Aircraft / RAM */}
+            <div className="letter-campaign-card">
+              <div className="letter-campaign-tag">Campaign Option 1 · $500K goal</div>
+              <div className="letter-campaign-goal letter-campaign-goal--dark">Rural Air Mobility</div>
               <h3>The aircraft that makes it all possible — built for the people who actually need it</h3>
               <p>
-                The technology to build this aircraft already exists: quadcopter-style distributed lift for safety redundancy, autonomous landing as a failsafe. These aren&rsquo;t moonshots — they&rsquo;re in production right now. They&rsquo;re just being chased almost exclusively by Urban Air Mobility.
+                The technology to build this aircraft already exists. Quadcopter-style distributed
+                lift for safety redundancy. Autonomous landing as a failsafe. These aren&rsquo;t moonshots
+                — they&rsquo;re in production right now. They&rsquo;re just being chased almost exclusively
+                by Urban Air Mobility: downtown-to-downtown, high-density, high-ticket.
               </p>
               <p>
-                Most of America isn&rsquo;t downtown. There is exactly one purpose-built aircraft designed for rural use — made in China, and the company doesn&rsquo;t appear to be taking it seriously. So: we build it here. Sub-$1M. Rugged, reliable, American-made. $500K gets the design rolling.
+                Which is fine. But it leaves an enormous gap. Most of America isn&rsquo;t downtown.
+                And as work goes increasingly virtual — and as people continue leaving big cities
+                for more rural areas — the gravity is shifting. Non-concentrated populations don&rsquo;t
+                need a commuter air taxi. They need a <strong>sky uber</strong>: a single-occupant,
+                affordable aircraft that can take off from a field and land in a driveway.
               </p>
-              <p><em style={{color: "#2e7d4f"}}>FlyIRL is a dream — a purpose-built aircraft is a product. Kickstarter bread and butter.</em></p>
-              <Link href="/plane">See the full campaign page &rarr;</Link>
+              <p>
+                There&rsquo;s a real Rural Air Mobility argument here that nobody&rsquo;s making loudly
+                enough. There is exactly one purpose-built aircraft designed for this kind of
+                experience — it&rsquo;s made in China, and the company doesn&rsquo;t appear to be taking
+                it seriously.{" "}
+                <em>(Look up the EHang VT30 if you&rsquo;re curious.)</em>{" "}
+                So: we build it here. Sub-$1M. Rugged, reliable, American-made. $500K gets
+                the design rolling. FlyIRL is a dream — a purpose-built aircraft is a product,
+                Kickstarter bread and butter.
+              </p>
+              <div className="letter-campaign-imgs">
+                <img src="/images/ehang-vt30-landing.jpg" alt="EHang VT30 on landing pad" />
+                <img src="/images/ehang-vt30.jpg" alt="EHang VT30 top view" />
+              </div>
+              <Link href="/plane">See the full campaign page →</Link>
             </div>
 
             {/* Campaign 2 — STOL Cub */}
-            <div className="u-campaign-card u-campaign-card--blue" style={{marginTop: "14px"}}>
-              <p className="u-campaign-tag u-campaign-tag--blue">Campaign Option 2 &nbsp;·&nbsp; Deliverable within a year</p>
-              <div className="u-campaign-badge u-campaign-badge--blue">Available Now</div>
+            <div className="letter-campaign-card letter-campaign-card--blue">
+              <div className="letter-campaign-tag letter-campaign-tag--blue">Campaign Option 2 · Deliverable within a year</div>
+              <div className="letter-campaign-goal letter-campaign-goal--blue">Available Now</div>
               <h3>The STOL Cub Experience — proving people want this right now</h3>
               <p>
-                Experiential entertainment that already exists. A 1-hour discovery flight in a backcountry bush plane — into genuine wilderness near Las Vegas, as low and slow and alive as aviation gets — doable as a Kickstarter tier within a year. Starting around $250.
+                This is experiential entertainment that already exists. I know the owner of one
+                of the premier STOL training schools in the country. A 1-hour discovery flight
+                in a backcountry bush plane — into genuine wilderness near Las Vegas, as low and
+                slow and alive as aviation gets — is doable as a Kickstarter tier within a year.
+                Starting around $250.
               </p>
               <p>
-                The pitch isn&rsquo;t &ldquo;trust us, someday.&rdquo; It&rsquo;s: <strong>here&rsquo;s the full STOL backcountry experience, now.</strong> The kind of flight that converts a curious person into a lifelong aviation enthusiast in 60 minutes. That&rsquo;s the market signal FlyIRL needs — and it also gives FlyIRL real manned flight operations on the books. The FAA pays attention to that.
+                The pitch for this one isn&rsquo;t &ldquo;trust us, someday.&rdquo; It&rsquo;s:{" "}
+                <strong>here&rsquo;s the full STOL backcountry experience, now.</strong>{" "}
+                Extremely fun. Extremely safe. The kind of flight that converts a curious person
+                into a lifelong aviation enthusiast in 60 minutes. That&rsquo;s the market signal
+                FlyIRL needs — proof that when you make it accessible, people show up.
               </p>
-              <Link href="/cub">See the full campaign page &rarr;</Link>
+              <p>
+                It also gives FlyIRL real manned flight operations on the books. The FAA pays
+                attention to that when you&rsquo;re eventually pushing into the autonomy space.
+              </p>
+              <div className="letter-campaign-imgs">
+                <img src="/images/stol-drag.jpg" alt="STOL drag bush plane" />
+                <img src="/images/stol-drag-field.jpg" alt="Bush planes on a backcountry field at sunset" />
+              </div>
+              <Link href="/cub">See the full campaign page →</Link>
             </div>
 
             {/* Campaign 3 — X Prize */}
-            <div className="u-campaign-card u-campaign-card--purple" style={{marginTop: "14px", marginBottom: "8px"}}>
-              <p className="u-campaign-tag u-campaign-tag--purple">Campaign Option 3 &nbsp;·&nbsp; $50K goal</p>
-              <div className="u-campaign-badge u-campaign-badge--purple">Smallest Ask, Biggest Leverage</div>
+            <div className="letter-campaign-card letter-campaign-card--purple">
+              <div className="letter-campaign-tag letter-campaign-tag--purple">Campaign Option 3 · $50K goal</div>
+              <div className="letter-campaign-goal letter-campaign-goal--purple">Smallest Ask, Biggest Leverage</div>
               <h3>A university X-Prize — outsource the hardest engineering to people paid to solve it</h3>
               <p>
-                $50,000 to run a Moonshot competition for aerospace engineering departments at top universities. Student and faculty teams compete to design the aircraft systems and infrastructure we&rsquo;d otherwise fund at $500K internally.
+                Here&rsquo;s the most efficient option on the table: $50,000 to run a Moonshot
+                competition for aerospace engineering departments at top universities. Student
+                and faculty teams compete to design the aircraft systems and infrastructure
+                we&rsquo;d otherwise fund at $500K internally.
               </p>
               <p>
-                Yes, we&rsquo;d share the IP. But FlyIRL is a business, not a product. Whatever gets the right aircraft designed — and gets the most brilliant aero minds in the country thinking about Rural Air Mobility — is a win. The design gets done. The community builds. The winning team builds something real.
+                Yes, we&rsquo;d share the IP. But FlyIRL is a business, not a product. Whatever
+                gets the right aircraft designed — and gets the most brilliant aero minds in
+                the country thinking about Rural Air Mobility — is a win. The design work
+                gets done. The community builds. And the winning team gets something better
+                than a grade: they build something real.
               </p>
-              <Link href="/xprize">See the full campaign page &rarr;</Link>
+              <div className="letter-campaign-imgs">
+                <img src="/images/gt-capstone.png" alt="Georgia Tech aerospace engineering team winning a capstone design competition" />
+                <img src="/images/hackathon-team.jpg" alt="University engineering team at a hackathon" />
+              </div>
+              <Link href="/xprize">See the full campaign page →</Link>
             </div>
 
             {/* Vote CTA */}
