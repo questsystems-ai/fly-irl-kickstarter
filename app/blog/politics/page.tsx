@@ -170,7 +170,7 @@ export default function PoliticsBlogPost() {
           <p>
             It could work. Because the dream of human flight is universal, and tied from birth to
             the core principles and values that indisputably make America great — the core of our
-            success as a nation. America First, but then the world.
+            success as a nation.
           </p>
 
           <Link href="/blog" className="post-back">
