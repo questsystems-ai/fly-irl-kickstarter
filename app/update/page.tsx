@@ -936,13 +936,13 @@ export default function UpdateLetterPage() {
 
             <div className="u-body-intro">
               <p>
-                Thanks to everyone who filled out the survey — I read every response. The signal was clear: <strong>you want to back something real, deliverable, and soon.</strong>
+                Thanks to everyone who filled out the Update 1 survey! It&rsquo;s valuable data and we&rsquo;re using it to strategize next steps.
               </p>
               <p>
-                So here&rsquo;s what I&rsquo;ve been sitting on. There are three Kickstarter-ready campaigns I could launch right now. Each one is a real product, a real funding goal, and a real step toward the SkyPark. Pick any one and it moves the whole thing forward.
+                In the meantime, I wanted to hit you with this thought. If you are someone who likes the idea but aren&rsquo;t willing to pre-pay for an &ldquo;experiential entertainment&rdquo; product that won&rsquo;t get delivered for 5&ndash;10 years, there ARE some interesting alternative Kickstarter options. If they succeed, they would support our goals to deploy the flagship product ASAP and within our affordability targets just as effectively as a FlyIRL-the-business focused campaign.
               </p>
               <p>
-                I need to know which one <em>you</em> want to see. Scroll through. Vote at the bottom.
+                Please check them out and let us know what you think!
               </p>
             </div>
 
