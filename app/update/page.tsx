@@ -653,24 +653,7 @@ export default function UpdateLetterPage() {
         .letter-campaign-goal--purple { background: #6b47b8; }
         .letter-campaign-goal--dark { background: #2e7d4f; }
 
-        /* ── Smart FAB ── */
-        .update-survey-fab {
-          position: fixed;
-          bottom: 28px;
-          left: 24px;
-          background: #e8380d;
-          color: #fff;
-          font-family: 'Helvetica Neue', Arial, sans-serif;
-          font-size: 13px;
-          font-weight: 700;
-          padding: 12px 18px;
-          border-radius: 50px;
-          text-decoration: none;
-          box-shadow: 0 4px 16px rgba(232,56,13,0.45);
-          z-index: 50;
-          animation: fabPulse 3.5s ease-in-out infinite;
-          transition: opacity 0.2s;
-        }
+        /* ── FABs ── */
         .update-discord-fab {
           position: fixed;
           bottom: 28px;
@@ -686,11 +669,6 @@ export default function UpdateLetterPage() {
           box-shadow: 0 4px 16px rgba(88,101,242,0.45);
           z-index: 50;
         }
-        @keyframes fabPulse {
-          0%, 100% { transform: translateY(0); box-shadow: 0 4px 16px rgba(232,56,13,0.45); }
-          50% { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(232,56,13,0.6); }
-        }
-
         /* ── Mobile ── */
         @media (max-width: 500px) {
           .u-body, .u-body-intro, .u-tiers, .u-section, .u-survey-cta, .u-signoff, .u-footer { padding-left: 20px; padding-right: 20px; }
@@ -1070,14 +1048,6 @@ export default function UpdateLetterPage() {
         </div>
 
       </div>
-
-      {/* Smart survey FAB — label + link changes based on which update is in view */}
-      <Link
-        href={activeUpdate === 1 ? "/survey" : "/survey/campaigns"}
-        className="update-survey-fab"
-      >
-        {activeUpdate === 1 ? "Help! Another survey! ;)" : "Cast My Vote \u2192"}
-      </Link>
 
       <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer" className="update-discord-fab">
         💬 Join the Discord Discussion!
