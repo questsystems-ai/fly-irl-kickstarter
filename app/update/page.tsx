@@ -1042,7 +1042,7 @@ export default function UpdateLetterPage() {
                 <p className="u-survey-eyebrow">2 minutes &nbsp;·&nbsp; This decides what gets launched</p>
                 <p className="u-survey-title">Which campaign do you want to see?</p>
                 <p className="u-survey-arrows">&#9660; &#9660; &#9660;</p>
-                <Link href="/survey" className="u-survey-btn">
+                <Link href="/survey/campaigns" className="u-survey-btn">
                   &#9654;&nbsp;&nbsp;Cast My Vote&nbsp;&nbsp;&#9654;
                 </Link>
                 <p className="u-survey-fine">Suggest a tier that makes it in &mdash; you get it free.</p>
@@ -1073,10 +1073,10 @@ export default function UpdateLetterPage() {
 
       {/* Smart survey FAB — label + link changes based on which update is in view */}
       <Link
-        href="/survey"
+        href={activeUpdate === 1 ? "/survey" : "/survey/campaigns"}
         className="update-survey-fab"
       >
-        {activeUpdate === 1 ? "Help! Another survey! ;)" : "Cast My Vote →"}
+        {activeUpdate === 1 ? "Help! Another survey! ;)" : "Cast My Vote \u2192"}
       </Link>
 
       <a href="https://discord.gg/tFFhRf3CJ" target="_blank" rel="noreferrer" className="update-discord-fab">
