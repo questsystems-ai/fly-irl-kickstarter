@@ -45,19 +45,19 @@ export default function UpdateLetterPage() {
         .update-page {
           background: #f2f0ec;
           min-height: 100vh;
-          padding-top: 64px;
+          padding-top: 76px;
           font-family: Georgia, serif;
         }
 
         /* ── Sticky update nav ── */
         .update-nav {
           position: sticky;
-          top: 64px;
+          top: 76px;
           z-index: 40;
           background: rgba(242,240,236,0.95);
           backdrop-filter: blur(8px);
           border-bottom: 1px solid #e0ddd8;
-          padding: 10px 16px;
+          padding: 14px 16px;
           display: flex;
           justify-content: center;
           gap: 10px;
