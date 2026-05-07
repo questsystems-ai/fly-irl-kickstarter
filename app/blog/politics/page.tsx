@@ -116,10 +116,15 @@ export default function PoliticsBlogPost() {
 
         <div className="post-body">
           <p>
-            For lots of reasons, America is divided as never before, enabled by our own technology,
-            our original but outdated political system, and of course the arc of history: empires
-            rise and fall. I believe technology — especially AI — will give us the space to arrest
-            the slide and avoid Rome&rsquo;s fate. Right now we have two sides digging in, both suspicious and convinced
+            We can all agree America is extremely divided, enabled by our own technological prowess
+            and uniquely free market system, our original but outdated political system, and of course
+            the arc of history: empires rise and fall. And the fact is, this is not a new situation.
+            Look back at the red scare of the McCarthy era, the hard hats and long hairs of the Vietnam
+            era. It was traumatic and messy but we survived. America will survive this too. To date
+            myself as an &rsquo;80s kid, in the words of Billy Joel: We didn&rsquo;t start the fire.
+          </p>
+          <p>
+            But the fact is, now we have two sides digging in, both suspicious and convinced
             the other is a threat to the values and security of America, leaving the quiet majority
             of independent voters with pretty stark choices, with almost diametrically opposed visions
             of both America&rsquo;s past and its future.
