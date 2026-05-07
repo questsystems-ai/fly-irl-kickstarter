@@ -119,7 +119,7 @@ export default function PoliticsBlogPost() {
             For lots of reasons, America is divided as never before, enabled by our own technology,
             our original but outdated political system, and of course the arc of history: empires
             rise and fall. I believe technology — especially AI — will give us the space to arrest
-            the slide and avoid Rome&rsquo;s fate. Two sides digging in, both suspicious and convinced
+            the slide and avoid Rome&rsquo;s fate. Right now we have two sides digging in, both suspicious and convinced
             the other is a threat to the values and security of America, leaving the quiet majority
             of independent voters with pretty stark choices, with almost diametrically opposed visions
             of both America&rsquo;s past and its future.
