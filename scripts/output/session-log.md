@@ -445,3 +445,405 @@ What's next?
 - Committed `public/images/cub-aircraft.png` + `cub-aircraft2.png` (were untracked)
 - Drafted general + VIP Mailchimp emails — copy in session log, not yet sent
 ---
+[09:36] [CLAUDE] Good, I have everything. Writing the email HTML now — table-based layout with inline styles (for Gmail/Outlook compatibility), absolute URLs, Mailchimp merge tags.
+[09:42] [CLAUDE] Done. The 6 tier cards now sit right after the "That's where you come in..." paragraph, before the "What I need" dark card.
+
+Layout flow is now:
+1. Intro / validation story
+2. Pull quote
+3. "Honest picture" + "what would people actually pay for?"
+4. **Tier cards** ($25 → $100 → $300 Most Popular → $1,000 → $10,000 → $100,000 Limited)
+5. "What I need" dark card (survey, day-1 backers, referrals)
+6. Three Kickstarter-ready campaign options
+7. Movement section + survey CTA
+
+The $300 Test Pilot and $100K Ranch Founder have the bold black borders to match the "featured" treatment from the web page.
+[09:54] [CLAUDE] Done — just the button, nothing else. "Take the Survey :) →"
+[10:04] [CLAUDE] Good news: you already have a `_dmarc` record, so you only need to add the two CNAMEs.
+
+**Add these two records in GoDaddy DNS:**
+
+| Type | Name | Value | TTL |
+|------|------|-------|-----|
+| CNAME | `k2._domainkey` | `dkim2.mcsv.net` | 1/2 Hour |
+| CNAME | `k3._domainkey` | `dkim3.mcsv.net` | 1/2 Hour |
+
+**Skip the DMARC step** — you already have `_dmarc` set to `p=quarantine`, which is stricter than `p=none`. Mailchimp will accept it. Adding a second `_dmarc` record would break both.
+
+Once you've saved the two CNAMEs, go back to Mailchimp and hit "Validate Records." DNS changes usually propagate within a few minutes with GoDaddy, but Mailchimp may take up to 15–30 min to confirm.
+[10:07] [CLAUDE] GoDaddy is rejecting the value `dkim3.mcsv.net` — it likely wants a trailing dot or is being finicky about the format.
+
+Try: `dkim3.mcsv.net.` (with a trailing dot at the end of the value)
+
+If that still fails, try the Name as `k3._domainkey.fly-irl.com` (fully qualified) with the same value.
+
+The underscore in `k3._domainkey` can also trip up GoDaddy's validator — if neither works, their support can add it manually on the backend, which is a known workaround for underscore CNAME records.
+[10:09] [CLAUDE] API route is wired up, table was confirmed live from a previous session. You should be good to test.
+
+One thing to double-check before you hit submit: the survey page collects `email` as part of the submission — make sure the form actually has an email field or that it's optional (the API sets it to `null` if missing, so a blank email won't break it).
+
+Go ahead and run through it at `fly-irl-kickstarter.vercel.app/survey` — after submitting, I can help you verify the row landed in Supabase if you want to confirm.
+[09:05] [CLAUDE] ---
+
+## Session Briefing
+
+### Today
+Monday, May 4 2026 — 9:05 AM
+
+### Model
+Running as Sonnet 4.6 ✅ (cost-aware mode active)
+
+### Product
+Pre-launch Kickstarter site for FlyIRL / SkyPark — signal-gathering mode, 1,000+ signups captured.
+
+### Last Session (2026-04-19)
+- Root `/` redirects to `/update` — deployed
+- Survey FAB pulses every 3.5s on `/update`
+- Discord FAB added bottom-right, links to discord.gg/5vBd8YP8
+- Mailchimp email copy drafted (general 961 + VIP 35) — ready to paste, not sent
+- Researched Kickstarter/crowdfunding policy on long-horizon aviation rewards
+
+### Uncommitted Changes
+- `.claude/skills/initiate/SKILL.md` + `terminate/SKILL.md` — skill file updates (224 / 80 lines changed)
+- `scripts/output/session-log.md` — 38 lines added (last session's log)
+- `scripts/output/… [truncated]
+[09:28] [CLAUDE] All done. Here's what was built:
+
+**Fixed:**
+- `app/page.tsx` — no longer redirects to `/update`. Root `fly-irl.com` now shows the original landing page with hero video and email capture.
+
+**Updated:**
+- `components/Nav.tsx` — now has **Home | Updates | Blog** links. Logo is left-aligned, links on the right. Active page is highlighted. Works on all pages that use `<Nav />`.
+
+**Created:**
+- `app/blog/page.tsx` — blog index with cards for both posts
+- `app/blog/politics/page.tsx` — "Putting on my politics hat…" with the Sabrina Carpenter Grammys image
+- `app/blog/revolution/page.tsx` — "A Revolution in General Aviation?" with all 9 images extracted from the PDF (Beachey vs Oldfield, barnstorming era, Lincoln Beachey's fall, Cirrus, military jets, F-22, Joby, UAM city illustration, and the Sk… [truncated]
+[09:32] [CLAUDE] Pushed. Vercel will auto-deploy — should be live in ~1 minute at `fly-irl-kickstarter.vercel.app`.
+[09:43] [CLAUDE] Pushed. The `/update` page now has the full Home | Updates | Blog nav bar at the top, consistent with all other pages. Vercel should have it live in ~1 min.
+[09:51] [CLAUDE] This is a Mailchimp configuration question — let me break down what's likely happening and what to do.
+
+**Why 933 vs 965:**
+The gap (~32 people) almost exactly matches your VIP count (35). The VIPs probably entered the list through the "$1-reservation" or "vip-reserved" flow with a different contact status — possibly `non-subscribed` or `transactional` — rather than the standard `subscribed` status. So "All subscribed contacts" silently excludes them.
+
+**For this general broadcast (everyone):**
+Don't use "All subscribed contacts." Instead, change the **To** field to a **segment** using:
+
+> **Tag** `pre-launch` — is — active
+
+If "pre-launch" was applied to every signup regardless of path, this should capture all ~965. Check the count when you select it — if it shows ~965, you're good.
+
+If "… [truncated]
+[09:57] [CLAUDE] Here's the full picture:
+
+**Mailchimp audience breakdown:**
+
+| Tag | Members |
+|-----|---------|
+| `general` | 931 |
+| `pre-launch` | 932 |
+| `vip-reserved` | 35 |
+| `$1-reservation` | 35 |
+| `industry` | 1 |
+| **Total subscribed** | **933** |
+
+**What this tells you:**
+
+The `pre-launch` tag only has **932** members — it was applied to almost everyone but not quite all. More importantly, the VIPs (35) appear to **also be in the main 933** — they're tagged `vip-reserved` AND `$1-reservation`, but they're already subscribed contacts counted in the 933 total.
+
+So the 933 "All subscribed contacts" **already includes the VIPs**. The discrepancy between 933 (Mailchimp) and 965 (what you see in the automation flow totals) is just Mailchimp counting automation steps differently — the 962 + 35 = 997… [truncated]
+[09:58] [CLAUDE] That's you — `hello@fly-irl.com`, your own address, added Jan 28 when you were setting things up. The `industry` tag shows 1 member in the segment search but curiously shows no tags on the contact record itself, which is a Mailchimp caching quirk.
+
+Nothing to worry about. It's just a test/admin address. You can leave it, or untag it from `industry` if you want a cleaner list.
+[10:04] [CLAUDE] That's a Mailchimp deliverability issue — Gmail auto-routes bulk-sent HTML emails to the Updates tab because Mailchimp adds headers like `List-Unsubscribe` that Gmail uses to classify them. It's not unique to you; it affects almost all Mailchimp campaigns to Gmail users.
+
+**What you can control:**
+
+**1. Domain authentication (biggest impact)**
+Make sure `fly-irl.com` has SPF, DKIM, and DMARC records set up for Mailchimp. In Mailchimp:
+- Go to **Account → Domains → fly-irl.com → Authenticate**
+- It'll give you DNS records to add to your domain registrar
+- Without this, Gmail trusts the email less and bins it faster
+
+**2. From name**
+Change from `FlyIRL` to `Aaron from FlyIRL` or just `Aaron` — personal sender names perform better on inbox placement.
+
+**3. Ask recipients to move it**
+Add a o… [truncated]
+[10:17] [CLAUDE] Done. Here's what was done:
+
+**Email (`mailchimp-email-general.html`):**
+- Item 1 is now bolded and highlighted with a left-accent bar + arrow — clearly the main CTA
+- "Added Bonus: A robust discussion on Discord!" added at the bottom of the dark card, linked
+- Removed "Just Throwing This Out There..." + all 3 campaign blocks
+- Survey CTA is now a dark gradient card with red button, downward arrows, and "Suggest a tier that makes it in — you get it free" subtext
+
+**Survey page** (`/survey`) — deployed:
+- Removed Q5 (STOL), Q6 (plane), Q7 (x-prize) and their state variables
+- Now flows: tier interest → day-1 pledge → referral → open ideas → email → submit
+
+**Follow-up email drafted** (`scripts/output/mailchimp-email-followup.html`):
+- Opens with "thanks for the survey responses, signal was … [truncated]
+[14:10] [CLAUDE] ---
+
+## Session Briefing
+
+### Today
+Monday, May 4 2026 — 2:09 PM
+
+### Model
+✅ Running as Sonnet (cost-aware mode active) · api-dash ✓
+
+### Product
+Pre-launch Kickstarter site for FlyIRL/SkyPark — signal-gathering mode, 1,000+ signups, choosing which Kickstarter path to launch.
+
+### Other Active Sessions
+**session-20260504-0905** — earlier session today, worked on **homepage fix + blog** (`app/page.tsx`, `components/Nav.tsx`, `app/blog/*`). That work is committed (b212439, 036f8a4, 76055f1) — session is stale/ended.
+
+### Last Session (2026-04-19 ~11:00)
+**Done:**
+- Root `/` → `/update` redirect
+- Survey FAB pulsing animation + Discord FAB
+- Mailchimp email copy drafted (general + VIP, not yet sent)
+- Kickstarter policy research (STOL Cub is cleanest play)
+
+**Today's commits (this morning's … [truncated]
+[10:12] [CLAUDE] What's the new Discord link? Once you give it to me I'll update all the live locations:
+- `app/update/page.tsx` (2 spots — the movement section link + the Discord FAB)
+- `scripts/output/mailchimp-email-general.html` (2 spots)
+- `scripts/output/mailchimp-email-followup.html` (1 spot)
+[10:13] [CLAUDE] Honestly? Probably not worth it. Here's the tradeoff:
+
+**Against sending a correction email:**
+- The Discord link is a secondary CTA — the survey is what you actually need clicks on
+- Sending a second email the same day will annoy people and increase unsubscribes
+- Most people won't even try the Discord link from a cold email
+- An "oops" email trains people that your emails are noise
+
+**The exception — send one if:**
+- The Discord link is literally broken (not just invalid/expired) and you're getting bounce reports or confused replies
+- You have a working replacement link ready right now
+
+**Better path:** Fix the link in the live site (`app/update/page.tsx`) and the followup email HTML *now* with the real invite. When people land on `/update` from the email, the Discord FAB there will work… [truncated]
+[10:15] [CLAUDE] So the server might be gone or you're logged into a different Discord account. A few quick things to check:
+
+1. **Are you logged into the right Discord account?** — the server might be under a different login
+2. **Did you create a server or just a channel?** — channels live inside servers, so if you don't see a server on the left sidebar, the whole thing is missing
+3. **Check your email** — Discord sends a confirmation when you create a server; that'll tell you which account it's under
+
+Once you find/recreate the server and get a valid invite link, just give it to me and I'll update all the spots in the codebase. The sent email is a sunk cost — fix it going forward.
+[10:19] [CLAUDE] Oof. That's annoying but recoverable — the content isn't gone forever if you find the right account.
+
+**Most likely culprit:** You're logged into a different Discord account than the one where you built it.
+
+On desktop Discord:
+- Bottom-left corner → click your avatar → "Switch Accounts" (if you have multiple)
+- Or check discord.com in a browser while logged in there — might be a different session
+
+On mobile:
+- Tap your avatar bottom-right → scroll up to see all accounts
+
+**If you genuinely can't find it** — you'll have to rebuild the server. Not fun but it's probably 20-30 minutes of work since you remember the structure.
+
+Want me to draft the channel list + starter comments so you can reconstruct it quickly? You'd just paste them in. Or if you remember roughly what channels you made, lis… [truncated]
+[10:21] [CLAUDE] In Discord:
+
+**Server Settings → Invites → Create New Invite**
+
+Or the quick way: right-click any channel → **Invite People** → set it to **Never expire** → copy the link.
+
+Once you have it, paste it here and I'll update all the spots in the codebase.
+[10:22] [CLAUDE] Done. Followup email now has the correct link. That file is untracked (output only) so no commit needed — just use it when you're ready to send.
+[08:33] [CLAUDE] Working. Your test submission is right there at the top:
+
+- **aaron.m.kushner@gmail.com** — tier: `dreamer`, day-1 pledge: `yes` — submitted 15:32 UTC today
+
+And two real responses came in from the email blast:
+- **jorenbell@gmail.com** — `testpilot`, probably pledging day-1
+- **flyirl@optimozo.com** — `crew` + `founding`, yes to day-1
+
+Survey is live and capturing. 🎯
+[09:02] [CLAUDE] Still just the same 3 rows — your test + the 2 from yesterday. No new submissions since yesterday at ~15:32 UTC.
+
+Nothing broken, just quiet so far today.
+[09:06] [CLAUDE] I can see the issue — commit `e48418b` added the three campaign cards (Rural Air Mobility, STOL Cub, X-Prize) directly into `/update`, making it ~900 lines. Before that it was 629 lines — just the founder letter + survey CTA, no campaign detail cards.
+
+Before I revert, want to confirm: do you want `/update` to go back to **just the founder letter + survey CTA** (no inline campaign cards), with the campaign details living only on `/plane`, `/cub`, `/xprize`?
+[09:10] [CLAUDE] Pushed. `/update` is now clean — founder letter, stats, what you need (survey/day1/referrals), movement section, survey CTA. Campaign cards are gone and waiting for the second update email.
+[09:15] [CLAUDE] Pushed. `/update` is now the original — founder letter, stats, the three "what I need" items, STOL Cub aside + two wildcards as asides (not campaign cards), and the survey CTA.
+
+Note: this version predates the survey FAB, Discord FAB, and shared nav — those are gone too. Want them added back on top of the original?
+[09:22] [CLAUDE] Pushed. The page is now a direct conversion of the email:
+
+- Same structure: hero → stats → body → reward tiers → "Now Then..." → dark cards → survey CTA → sign-off
+- Same copy verbatim
+- Correct Discord link (`tFFhRf3CJ`) in both the dark card bonus and movement section
+- Survey FAB + Discord FAB restored
+- Nav restored
+- Hover state on the orange survey button (small lift)
+
+Let me know what you want to refine.
+[09:32] [CLAUDE] Pushed. Here's what's live:
+
+- **Sticky nav** just below the site nav — "Update 1 — Reward Tiers" and "Update 2 — The Campaigns" buttons, both smooth-scroll to their section and highlight when active
+- **Update 1** — exact email layout: hero, stats, body, all 6 reward tiers, dark cards, survey CTA
+- **Update 2** — exact email layout: hero, intro, 3 colored campaign cards (green/blue/purple), vote CTA
+- **Smart FAB** — uses IntersectionObserver at 25% visibility threshold; shows "Help! Another survey! ;)" when Update 1 is in view, switches to "Cast My Vote →" when Update 2 is in view; both point to `/survey` for now
+- **Discord FAB** stays pinned right on both
+[09:35] [CLAUDE] The campaign pages are untouched — they still have their original full formatting with images. What you saw this morning in `/update` were the cards from commit `e48418b` which pulled the campaign content inline. Those cards had images and the full styled layout from these pages.
+
+Want me to look at one of the campaign pages so we can see how the cards were structured, then match that format in the Update 2 section of `/update`?
+[09:37] [CLAUDE] Pushed. Update 2 now has the original cards — tag + colored goal badge + Montserrat h3 + full copy + image grid + link, exactly as they were this morning.
+[09:49] [CLAUDE] Copy fixed and pushed.
+
+On the survey question: the campaign vote questions (stol_interest, plane_interest, xprize_interest) were removed from `/survey` but the API still accepts them. "Cast My Vote" currently points to the same `/survey` as Update 1.
+
+Do you want me to build a second survey page at `/survey/campaigns` (or similar) that shows the three campaign options and asks which one to back — posting to the same `/api/survey` endpoint? That would let Cast My Vote point somewhere distinct.
+[09:52] [CLAUDE] Pushed. Here's what's live:
+
+- **`/survey/campaigns`** — new page with the three campaign questions (STOL Cub, RAM Aircraft, X-Prize), same styling as the main survey, posts to the same `/api/survey` endpoint (stol_interest, plane_interest, xprize_interest fields)
+- **"Cast My Vote" button** in Update 2 → `/survey/campaigns`
+- **Smart FAB** now routes correctly: Update 1 in view → `/survey`, Update 2 in view → `/survey/campaigns`
+[09:54] [CLAUDE] Done. Survey FAB is gone, Discord FAB remains. The sticky nav buttons still highlight as you scroll between updates.
+[09:57] [CLAUDE] Done. Sticky nav buttons gone, both FABs still there.
+[09:58] [CLAUDE] Floating Action Button — it's the little pill-shaped button pinned to the bottom corner of the screen. In this case the red survey button (bottom-left) and the Discord button (bottom-right).
+[09:59] [CLAUDE] Done. Both floating buttons are gone.
+[10:01] [CLAUDE] Done. Sticky nav buttons are back, no FABs.
+[10:02] [CLAUDE] The code is all there correctly. The buttons are in the HTML. Could be Vercel hasn't finished deploying yet — it usually takes 1-2 minutes after a push. Try a hard refresh (`Ctrl+Shift+R`) on the live URL.
+
+If you're looking at `localhost`, run `npm run dev` to see it locally.
+[10:03] [CLAUDE] Pushed. The sticky nav now sits flush below the site nav with proper breathing room.
+[10:05] [CLAUDE] Pushed. The `scroll-margin-top: 140px` tells the browser to land 140px below the element's natural top when scrolling to it — enough to clear both the fixed Nav (76px) and the sticky update-nav (~65px).
+[10:10] [CLAUDE] Done.
+[10:11] [CLAUDE] Done.
+[10:18] [CLAUDE] Done. Also dropped the "I believe technology — especially AI" sentence per your replacement copy — the AI thought comes later in the piece now presumably. Let me know if you want it woven back in somewhere.
+[10:29] [CLAUDE] Done. Two changes:
+- Added ": Our role as pioneers and continuing excellence in Aviation." to close the first sentence
+- Rewrote the paragraph with your new copy — "So let's make", "Let's share in the joy and freedom", the "Give thought and attention to..." framing, through the China/FREEDOM line
+[10:36] [CLAUDE] Done. New order: China/FREEDOM line → Sabrina image with "Peace Through Flight! It can work. Just ask Sabrina Carpenter." as the caption → divider → final paragraph.
+[10:37] [CLAUDE] Done.
+[10:41] [CLAUDE] Done — image has no caption now, and "**Peace Through Flight!** It can work. Just ask Sabrina Carpenter." sits below it as a regular body paragraph.
+[10:58] [CLAUDE] Done. Order is now: divider → final paragraph → Sabrina image → "Peace Through Flight!" centered tight below it.
+[14:12] [CLAUDE] The handoff was complete. Sentinel cleared. Here's your briefing:
+
+---
+
+## Session Briefing
+
+### Today
+Sunday, May 10, 2026 — 2:12 PM
+
+### Model
+Sonnet ✅ · api-dash not running (start if needed: `cd api-dash && npm start`)
+
+### Product
+Pre-launch Kickstarter site for FlyIRL/SkyPark — signal-gathering mode, 3 survey responses so far.
+
+### Previous Session — 2026-05-10 ~10:00 · Blog edits + Updates rebuild
+
+**Done:**
+- Discord link fixed site-wide
+- `/update` rebuilt from Mailchimp HTML (Update 1 + Update 2 on one scrollable page, sticky nav)
+- `/survey/campaigns` — new campaign vote survey (STOL/RAM/XPrize questions)
+- Blog politics page (`/blog/politics`) — multiple copy edits (McCarthy/Vietnam opening, aviation pioneers, freedom para, Sabrina image at end with "Peace Through Flight!" cent… [truncated]
+[14:14] [CLAUDE] Here are all 3 survey responses, newest first:
+
+---
+
+**1. aaron.m.kushner@gmail.com** — May 6, 2026 (your test)
+- Tier: `dreamer`
+- Day-1 pledge: `yes`
+- Would refer: `yes`
+- Ideas: "test"
+- Device: Desktop Chrome
+
+---
+
+**2. jorenbell@gmail.com** — May 5, 2026
+- Tier: `testpilot`
+- Day-1 pledge: `probably`
+- Would refer: `yes`
+- Ideas: *(none)*
+- Device: Android / Mobile Chrome
+
+---
+
+**3. flyirl@optimozo.com** — May 5, 2026
+- Tiers: `crew` + `founding` (picked two)
+- Day-1 pledge: `yes`
+- Would refer: `maybe`
+- Ideas: *(none)*
+- Device: Desktop Chrome
+
+---
+
+So two real responses besides your test. Joren Bell went for Test Pilot, and optimozo went high — Crew + Founding. Both said yes or probably on day-1 pledge. Want to follow up with them individually?
+[14:18] [CLAUDE] ---
+
+**jorenbell@gmail.com**
+- Signed up: **March 6, 2026** (2 months before the survey)
+- Source: `flyirl-landing` / page: `/landing`
+- Device: Android / Mobile Chrome (same device as the survey)
+- UTM: none — came in direct or organic
+- Audience mode: `general`
+
+---
+
+**flyirl@optimozo.com** — not in `prelaunch_leads` at all. They filled out the survey but never went through the email capture form. Could be someone who got a direct link to the survey, or the lead entry failed silently at some point.
+
+Want to look up optimozo to see who that is, or follow up with both of them directly?
+[08:07] [CLAUDE] Three campaigns sent:
+
+---
+
+**"Update from FlyIRL!"** — May 5, 2026
+- Sent to: 933 people
+- Unique opens: **184 (20.4%)**
+- *(This is the one with the survey link)*
+
+**"Welcome to FlyIRL!"** — Feb 14, 2026
+- Sent to: 962 people
+- Unique opens: **349 (37.6%)**
+
+**"Thank You!"** — Feb 14, 2026 *(same day, smaller list — probably a test or segment)*
+- Sent to: 35 people
+- Unique opens: **18 (51.4%)**
+
+---
+
+20% open rate on the May update is actually solid for a cold list — industry average is ~21%. The welcome email at 37.6% is great (first-touch emails always get more attention). Want to see click rates too, or drill into who specifically opened the survey email?
+[14:42] [CLAUDE] No name on file — he signed up via the API (email-only form, no name field). Here's everything we have on Joren:
+
+---
+
+**jorenbell@gmail.com**
+
+| | |
+|---|---|
+| Signed up | March 6, 2026 |
+| Source | Direct / organic (no UTM) |
+| Device at signup | Android mobile |
+| Mailchimp tags | `pre-launch`, `general` |
+| Avg open rate | **100%** — has opened every email |
+| Avg click rate | **50%** — clicked in half the emails sent |
+| Survey (May 5) | Test Pilot tier · Day-1 pledge: probably · Would refer: yes |
+
+---
+
+He's a strong signal — opened everything, clicked half, then went back and filled out the survey two months later choosing the highest tier. No name, no UTM, so probably word of mouth or direct. Worth a personal reply. Want to draft something for him?
+[14:43] [CLAUDE] He did — that's where we found him in the first place. His survey response was the second one we pulled:
+
+- **jorenbell@gmail.com** — May 5, 2026 — Tier: `testpilot` · Day-1 pledge: `probably` · Would refer: `yes`
+
+Are you thinking of a different survey, or asking whether he filled out the **campaigns** survey (`/survey/campaigns`) as well? I can check that table too.
+[14:44] [CLAUDE] Joren is not in `survey_responses` — he never filled out the original campaign survey. This table is a much richer dataset (age, gender, location, user type, pricing, etc.) with what looks like a lot of responses. Want me to pull the total count and a summary of what people said?
+[14:53] [CLAUDE] He was a lead — he signed up through the email capture form on March 6. We found him in `prelaunch_leads` earlier. He just never filled out the original `survey_responses` survey.
+
+So his full timeline:
+
+- **March 6** — signed up on `/landing` (organic, mobile) → got added to Mailchimp
+- **March 6 onward** — opened every email, clicked in half of them
+- **May 5** — came back and filled out the new kickstarter survey (picked Test Pilot, day-1 pledge probable)
+- **Never** — filled out the original campaign survey (`survey_responses`)
+
+He's a quiet but engaged follower. Signed up, reads everything, eventually converted to the new survey without being explicitly prompted.
