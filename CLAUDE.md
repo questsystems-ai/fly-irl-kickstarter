@@ -41,3 +41,6 @@ Meta Pixel · TikTok Pixel · Google Tag Manager — all wired in layout.tsx
 
 ## Complexity Check (Self-Audit Rule)
 After 2 failed attempts at the same problem: STOP. Diagnose, propose a fix, let the user decide.
+
+## When Searching
+If Glob or Grep returns a directory or file path that's plausibly relevant to the question, read inside it before answering. Don't stop at the listing.
